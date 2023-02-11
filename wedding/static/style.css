@@ -1,0 +1,48 @@
+h1, h2 {
+    margin:0px;
+    display: inline-block;
+    padding:1em;
+    vertical-align: top;
+    font-family: georgia;
+    font-size: 28px;
+    line-height: 28px;
+}
+
+
+h2 {
+  text-align:right;
+  padding-right:2em;
+  float:right;
+}
+
+body {
+    background-color: #CC6699;
+    font-family: sans-serif;
+    color: #CCFFFF;
+    border: 3px solid #A9A9A9;
+    margin-top: 20px;
+    padding: 30px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #A9A9A9;
+}
+
+nav ul li {
+  display: inline-block;
+  padding: 0 7px;
+  float: left;
+
+}
+
+nav ul li a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: #CCFFFF;
+}
