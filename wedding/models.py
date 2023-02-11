@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField
 
 
-# Create your models here.
 class City(Model):
     city = CharField(primary_key=True, max_length=64, null=False)
     postcode = IntegerField(null=True)
@@ -18,7 +17,6 @@ class Family(Model):
     family_name = CharField(primary_key=True, max_length=64, null=False)
     street_name = CharField(max_length=64, null=True)
     city = ForeignKey(City, null=False, on_delete=CASCADE, related_name="city_family")
-
 
     class Meta:
         ordering = ['family_name']
