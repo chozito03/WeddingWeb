@@ -12,15 +12,12 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
 
 
-# our signup view
 class SignUpView(generic.CreateView):
-    # připojíme vytvořený formulář
     form_class = SignUpForm
-    success_url = reverse_lazy('home')  # kam nás to přesměruje v případě úspěchu
-    template_name = 'signup.html'  # použije se tento template
+    success_url = reverse_lazy('home')
+    template_name = 'signup.html'
 
 
-# Create your views here.
 def home(request):
     return render(request, 'home.html')
 
