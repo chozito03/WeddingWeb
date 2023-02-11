@@ -1,0 +1,25 @@
+Project WeddingWeb
+- základní informace o ženichovi a nevěstě
+- základní informace o svatbě
+- aktuality o svatbě
+- náhled svatebního oznámení
+- počítadlo - odpočet do začátku svatby
+- přihlášení pozvaných hostů na základě pozvání
+- zóna pro přihlášené hosty
+  - host zodpoví základní dotazník
+  - hosté si objednají jídlo a pití
+    - filtr dle věku - alkoholické pití
+    - filtr dle hlavního jídla - doporučí vhodné pití
+  - dárky novomanželům - host vybere se seznamu
+    - vybrabný dárek zmizí z nabídky
+  - písničky do svat. playlistu 
+    - export playlistu ze Spotify
+    - každý host může přidat čtyři písně
+    - kontrola aby nedošlo k duplicitě v playlistu
+  - svatební výpomoc 
+    - dotazník na hosta na jeho vlastnosti
+    - na základě odpovědí vyfiltrovat vhodné úkoly
+    - z vyfiltrovaných úkolů si host vybere
+    - úkol zmizí z nabídky úkolů
+  - odběr novinek
+  - vzkazy novomanželům
