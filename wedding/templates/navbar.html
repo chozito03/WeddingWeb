@@ -1,11 +1,23 @@
 {% load static %}
-
-<nav>
-  <ul>
-    <li><a href="{% url 'about_us' %}">O nás</a></li>
-    <li><a href="{% url 'about_wedding' %}">O svatbě</a></li>
-    <li><a href="{% url 'news' %}">Aktuality</a></li>
-    <li><a href="{% url 'invitation' %}">Svatební oznámení</a></li>
-    <li><a href="{% url 'signup' %}">Registrace hosta</a></li>
-  </ul>
-</nav>
+ <div class="wrapper">
+    <div class="navbar">
+        <div class="inner_navbar">
+            <div class="logo">
+                <a href="{% url 'home' %}">Veronika & Josef</a>
+            </div>
+              <div class="menu">
+  <!--              <nav>-->
+                  <ul>
+                    <li><a href="{% url 'about_us' %}">O nás</a></li>
+                    <li><a href="{% url 'about_wedding' %}">O svatbě</a></li>
+                    <li><a href="{% url 'news' %}">Aktuality</a></li>
+                    <li><a href="{% url 'invitation' %}">Svatební oznámení</a></li>
+                    <li><a href="{% url 'signup' %}">Registrace hosta</a></li>
+                  </ul>
+  <!--              </nav>-->
+              </div>
+            <div class="hamburger">
+              <i class="fas fa-bars"></i>
+        </div>
+    </div>
+ </div>

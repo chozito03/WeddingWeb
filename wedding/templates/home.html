@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>HOME</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
-<body>
-<h1>Náš svatební den</h1>
-<h2>Veronika & Josef</h2>
+{% extends 'base.html' %}
 
-{% include 'navbar.html' %}
-<p>under construction</p>
-{% block content %} {% endblock %}
+{% block title %}HOME{% endblock %}
 
-</body>
-</html>
+{% block content %}
+<div class="main_container">
+    <h1>Náš svatební den</h1>
+    <h2>Veronika & Josef</h2>
+    {% if error_message %}
+        <div class="error_message">{{ error_message }}</div>
+    {% else %}
+        <p>Under construction.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
