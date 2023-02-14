@@ -26,6 +26,7 @@ class Family(Model):
 
 
 class InvitedGuests(Model):
+    username = CharField(unique=True, max_length=64, null=True)
     first_name = CharField(max_length=64, null=False)
     surname = CharField(max_length=64, null=False)
     email = CharField(max_length=64, null=True)
