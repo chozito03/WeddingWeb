@@ -87,7 +87,13 @@ def home(request):
 
 
 def about_us(request):
-    return render(request, 'about_us.html')
+    with open('data/about_us.txt', 'r') as file:
+        file_contents = file.read()
+        lines = file_contents.splitlines()
+    context = {'lines': lines}
+    return render(request, 'about_us.html', context)
+
+
 
 
 def about_wedding(request):
