@@ -1,8 +1,10 @@
+from urllib.parse import urlencode
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.template import context
 from django.urls import reverse_lazy, reverse
@@ -11,6 +13,7 @@ from spotipy import util
 
 from weddingweb import settings
 from django import forms
+
 from wedding.models import InvitedGuests, Song
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
@@ -18,6 +21,8 @@ from spotipy.oauth2 import SpotifyOAuth
 from django.shortcuts import render
 from django.conf import settings
 from weddingweb.settings import SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI, SPOTIFY_SCOPES
+from django.forms.models import model_to_dict
+
 
 
 class UsernameForm(forms.Form):
@@ -27,29 +32,33 @@ class UsernameForm(forms.Form):
 class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'password1', 'password2', 'first_name', 'last_name', 'email']
-
-    def __init__(self, *args, **kwargs):
-        super(UserRegistrationForm, self).__init__(*args, **kwargs)
-
-        # get the InvitedGuests instance for the current user
-        try:
-            invited_guest = InvitedGuests.objects.get(username=self.initial['username'])
-            self.fields['first_name'].initial = invited_guest.first_name
-            self.fields['last_name'].initial = invited_guest.surname
-            self.fields['email'].initial = invited_guest.email
-        except InvitedGuests.DoesNotExist:
-            pass
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
 
 
 def verify_username(request):
     if request.method == 'POST':
         form = UsernameForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            if InvitedGuests.objects.filter(username=username).exists():
-                registration_url = reverse('registration', args=[username])
-                return HttpResponseRedirect(registration_url)
+            username = form.cleaned_data.get('username')
+            try:
+                invited_guest = InvitedGuests.objects.get(username=username)
+            except InvitedGuests.DoesNotExist:
+                invited_guest = None
+
+            if invited_guest:
+                # data = {
+                    # 'username': invited_guest.username,
+                    # 'first_name': invited_guest.first_name,
+                    # 'last_name': invited_guest.last_name,
+                    # 'email': invited_guest.email,
+                # }
+                # user_form = UserRegistrationForm(data)
+
+                # return render(request, 'registration.html', {'form': user_form})
+                # return redirect(reverse('registration', kwargs={'username': username}))
+                return redirect('registration', username=username)
+
+
             else:
                 messages.error(request, 'Invalid username')
     else:
@@ -59,21 +68,39 @@ def verify_username(request):
 
 
 def registration(request, username):
-    invited_guests = InvitedGuests.objects.get(username=username)
+    try:
+        invited_guest = InvitedGuests.objects.get(username=username)
+    except InvitedGuests.DoesNotExist:
+        return HttpResponse('Invalid invitation URL')
+
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    else:
-        form = UserCreationForm(initial={
-            'username': invited_guests.username,
-            'first_name': invited_guests.first_name,
-            'last_name': invited_guests.surname,
-            'email': invited_guests.email,
+        form = UserRegistrationForm(request.POST, initial={
+            'username': username,
+            'first_name': invited_guest.first_name,
+            'last_name': invited_guest.last_name,
+            'email': invited_guest.email,
         })
 
-    return render(request, 'registration.html', {'form': form})
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = invited_guest.username
+            user.email = invited_guest.email
+            user.first_name = invited_guest.first_name
+            user.last_name = invited_guest.last_name
+            user.save()
+
+            messages.success(request, 'Your account has been created! You are now able to log in.')
+            return redirect('home')
+    else:
+        form = UserRegistrationForm(initial={
+            'username': username,
+            'first_name': invited_guest.first_name,
+            'last_name': invited_guest.last_name,
+            'email': invited_guest.email,
+        })
+
+    return render(request, 'registration.html', {'form': form, 'invited_guest': invited_guest})
+
 
 """
 class SignUpForm(UserCreationForm):
