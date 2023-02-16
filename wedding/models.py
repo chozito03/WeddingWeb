@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
-from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField, DateTimeField
-
+from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField, DateTimeField, \
+    BooleanField
 
 
 class City(Model):
@@ -38,7 +38,6 @@ class InvitedGuests(Model):
         ordering = ['last_name']
 
     def __str__(self):
-
         return self.last_name + " " + self.first_name
 
 
@@ -53,3 +52,13 @@ class Song(Model):
     def __str__(self):
         return f'{self.name} {self.artist}'
 
+
+class Requests(Model):
+    username = ForeignKey(User, null=False, on_delete=CASCADE)
+    hotel = BooleanField()
+    kids = BooleanField()
+    takeaway_to_restaurant = BooleanField()
+    takeaway_to_home = BooleanField()
+
+    def __str__(self):
+        return self.username.username

@@ -7,6 +7,10 @@ Project WeddingWeb
 - přihlášení pozvaných hostů na základě pozvání
 - zóna pro přihlášené hosty
   - host zodpoví základní dotazník
+    - požadavek na ubytování
+    - zda berou sebou děti
+    - požadavek na odvoz z kostela na hostinu
+    - požadavek na odvoz večer domů
   - hosté si objednají jídlo a pití
     - filtr dle věku - alkoholické pití
     - filtr dle hlavního jídla - doporučí vhodné pití
