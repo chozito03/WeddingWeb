@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
-from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField
+from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField, DateTimeField
+
 
 
 class City(Model):
@@ -38,3 +39,15 @@ class InvitedGuests(Model):
 
     def __str__(self):
         return self.surname + " " + self.first_name
+
+
+class Song(Model):
+    name = CharField(max_length=200)
+    artist = CharField(max_length=200)
+    album = CharField(max_length=200)
+    spotify_id = CharField(max_length=200)
+    preview_url = CharField(max_length=256, null=True, blank=True)
+    image_url = CharField(max_length=256, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.name} {self.artist}'
