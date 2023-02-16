@@ -1,11 +1,41 @@
 {% extends 'base.html' %}
+{% load static %}
 
 
 {% block title %}O nás{% endblock %}
 
 {% block content %}
-<div class="main_container">
-    <p>Veronika Vítková</p>
-    <p>Josef Krčmář</p>
+<!--<div class="container_about_us">-->
+<!--    <h1>{{ lines.0 }}</h1>-->
+<!--    <p>{{ lines.1 }} </p>-->
+<!--    <p>{{ lines.2 }} </p>-->
+<!--    <p>{{ lines.3 }} </p>-->
+<!--    <p>{{ lines.4 }} </p>-->
+<!--    <img src="{% static 'media/IMG_20211024_173949.jpg' %}" alt="image_description">-->
+
+<!--    <h1>{{ lines.6 }}</h1>-->
+<!--    <p>{{ lines.7 }} </p>-->
+<!--    <p>{{ lines.8 }} </p>-->
+
+<!--    <h1>{{ lines.10 }}</h1>-->
+<!--    <p>{{ lines.11 }} </p>-->
+<!--    <p>{{ lines.12 }} </p>-->
+<!--    <img src="{% static 'media/IMG_20210522_154342.jpg' %}" alt="image_description">-->
+<!--</div>-->
+
+<div class="container_about_us">
+    <img src="{% static 'media/IMG_20211024_173949.jpg' %}" alt="image_description">
+    {% for line in lines %}
+        {% if line|length <= 20 %}
+            <h1> {{ line }} <i class="fas fa-heart"></i> </h1>
+
+
+        {% endif %}
+        {% if line|length >= 20 %}
+            <p>{{ line }}</p>
+        {% endif %}
+    {% endfor %}
+
 </div>
+
 {% endblock %}

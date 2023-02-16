@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block title %}results{% endblock %}
+
+{% block content %}
+<div class="main_container">
+
+{% for result in results.tracks.items %}
+    <h2>{{ result.name }}</h2>
+    <h2>by {{ result.artists.0.name }} </h2>
+    <a href="{{result.external_urls.spotify}}" target="_blank">Odkaz na Spotify track</a>
+    <form method="post" action="{% url 'add_to_playlist' %}">
+      {% csrf_token %}
+        <input type="hidden" name="name" value="{{ result.name }}">
+        <input type="hidden" name="artist" value="{{ result.artists.0.name }}">
+        <input type="hidden" name="album" value="{{ result.album.name }}">
+        <input type="hidden" name="spotify_id" value="{{ result.id }}">
+        <input type="hidden" name="preview_url" value="{{ result.preview_url }}">
+        <input type="hidden" name="image_url" value="{{ result.album.images.0.url }}">
+        <button type="submit">Pridať do playlistu</button>
+    </form>
+{% endfor %}
+
+
+
+
+</div>
+{% endblock %}
