@@ -28,13 +28,13 @@ class Family(Model):
 class InvitedGuests(Model):
     username = CharField(unique=True, max_length=64, null=True)
     first_name = CharField(max_length=64, null=False)
-    surname = CharField(max_length=64, null=False)
+    last_name = CharField(max_length=64, null=False)
     email = CharField(max_length=64, null=True)
     phone_number = IntegerField(null=True)
     family_name = ForeignKey(Family, null=False, on_delete=CASCADE)
 
     class Meta:
-        ordering = ['surname']
+        ordering = ['last_name']
 
     def __str__(self):
-        return self.surname + " " + self.first_name
+        return self.last_name + " " + self.first_name

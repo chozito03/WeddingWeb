@@ -25,8 +25,10 @@ urlpatterns = [
     path('about_wedding/', about_wedding, name='about_wedding'),
     path('news/', news, name='news'),
     path('invitation/', invitation, name='invitation'),
-    path('verify_username/', verify_username, name='verify_username'),
-    path('registration/<str:username>/', registration, name='registration')
+    path('verify_username', verify_username, name='verify_username'),
+    path('registration/<username>/', registration, name='registration'),
+
+
 ]
 
 
