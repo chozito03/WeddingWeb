@@ -8,11 +8,16 @@
               <div class="menu">
   <!--              <nav>-->
                   <ul>
-                    <li><a href="{% url 'about_us' %}">O nás</a></li>
-                    <li><a href="{% url 'about_wedding' %}">O svatbě</a></li>
-                    <li><a href="{% url 'news' %}">Aktuality</a></li>
-                    <li><a href="{% url 'invitation' %}">Svatební oznámení</a></li>
-                    <li><a href="{% url 'verify_username' %}">Registrace hosta</a></li>
+                      <li><a href="{% url 'about_us' %}">O nás</a></li>
+                      <li><a href="{% url 'about_wedding' %}">O svatbě</a></li>
+                      <li><a href="{% url 'news' %}">Aktuality</a></li>
+                      <li><a href="{% url 'invitation' %}">Svatební oznámení</a></li>
+                      <!-- <li><a href="{% url 'verify_username' %}">Registrace hosta</a></li>-->
+                      {% if request.user.is_authenticated %}
+                      <li>{{ request.user.username }} <a href="{% url 'logout' %}">Logout</a></li>
+                      {% else %}
+                      <li><a href="{% url 'login' %}">Zóna hostů</a></li>
+                      {% endif %}
                   </ul>
   <!--              </nav>-->
               </div>

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ login }}{% endblock %}
+
+{% block content %}
+    <div class="main_container">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Přihlášení svatebního hosta</button>
+        </form>
+        You can <a href="{% url 'verify_username' %}">Registrace svatebního hosta</a>.
+    </div>
+{% endblock %}
