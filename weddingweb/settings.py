@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-v%$$1$cvbs51lf$&71$-o4(1oxk=k3$(w&vsvfyf3t-$ft793y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -116,9 +116,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SPOTIPY_CLIENT_ID ='9f026abb62ad4c63a952c87640fbe3ee'
+SPOTIPY_CLIENT_SECRET ='732f3849425a413e9d04f1f9c6e07355'
+SPOTIPY_REDIRECT_URI ='https://open.spotify.com/playlist/65Gg8X7NVU3g95Az5aXHgo'
+SPOTIFY_SCOPES = [
+    'playlist-modify-public',
+    'user-library-read',
+    'user-library-modify',
+]
+SPOTIPY_PLAYLIST_ID = '65Gg8X7NVU3g95Az5aXHgo'
