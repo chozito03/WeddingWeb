@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField, DateTimeField
-
+from django.utils import timezone
 
 
 class City(Model):
@@ -48,7 +48,10 @@ class Song(Model):
     album = CharField(max_length=200)
     spotify_id = CharField(max_length=200)
     preview_url = CharField(max_length=256, null=True, blank=True)
+    external_urls = CharField(max_length=256, null=True, blank=True)
     image_url = CharField(max_length=256, null=True, blank=True)
+    created = DateTimeField(auto_now_add=True)
+    user = ForeignKey(User, on_delete=CASCADE, null=True, blank=True, related_name='user_song')
 
     def __str__(self):
         return f'{self.name} {self.artist}'

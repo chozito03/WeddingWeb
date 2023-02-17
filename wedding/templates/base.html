@@ -13,18 +13,7 @@
 
 </head>
 <body>
-<!--<div class="main_container">-->
-<!--  <div id="search">-->
-<!--      <form method="post" action="/search/">-->
-<!--          {% csrf_token %}-->
-<!--          <label for="search">Search:</label>-->
-<!--          <input class="text" name="search">-->
-<!--      </form>-->
-<!--  </div>-->
-<!--</div>-->
-
 {% include 'navbar.html' %}
-
 {% block content %} {% endblock %}
 <script src="{% static 'script.js' %}"></script>
 </body>

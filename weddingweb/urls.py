@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from wedding.views import home, about_us, news, invitation, about_wedding, verify_username, registration, search_song, \
-    add_to_playlist
+    add_to_playlist, song_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +27,7 @@ urlpatterns = [
     path('news/', news, name='news'),
     path('invitation/', invitation, name='invitation'),
     path('verify_username/', verify_username, name='verify_username'),
+    path('playlist/', song_list, name='playlist'),
     path('search/', search_song, name='search_song'),
     path('add_to_playlist/', add_to_playlist, name='add_to_playlist'),
     path('registration/<username>/', registration, name='registration'),

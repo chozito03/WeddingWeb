@@ -108,13 +108,6 @@ background: #e2bdc6;
 .navbar .logo a span{
 	color: #e2bdc6;
 }
-h2  {
-	margin-bottom: 0.8rem;
-}
-
-h3  {
-	margin-bottom: 0.8rem;
-}
 
 .navbar .menu ul{
 	display: flex;
@@ -150,7 +143,6 @@ h3  {
 .main_container ul li a  {
 
     width: 250px;
-	margin-right: 10px auto ;
     align-content: center;
 	display: flex;
 	background: rgb(238, 238, 238);
@@ -168,10 +160,6 @@ h3  {
 .main_container ul li a.active{
 	background: #5bd485;
 }
-
-
-
-
 
 .main_container h1{
     margin-bottom: 10px;
@@ -199,35 +187,6 @@ h3  {
 	letter-spacing: 0.1rem;
 }
 
-
-/*.container_about_us {*/
-/*  display: grid;*/
-/*  grid-template-columns: 1fr 1fr;*/
-/*  grid-auto-rows: minmax(100px, auto);*/
-/*}*/
-
-/*.container_about_us > :first-child {*/
-/*  	grid-column: 1 / -1;*/
-/*}*/
-
-/*.container_about_us  :nth-child(2),*/
-/*.container_about_us  :nth-child(3),*/
-/*.container_about_us  :nth-child(4),*/
-/*.container_about_us  :nth-child(5) {*/
-/*  	grid-column: 1 / -1;*/
-/*}*/
-
-
-/*.container_about_us  :nth-child(6) {*/
-/*  	grid-column: 1 / -1;*/
-/*}*/
-/*.container_about_us  :nth-child(7),*/
-/*.container_about_us  :nth-child(8),*/
-/*.container_about_us  :nth-child(9){*/
-/*  	grid-column: 1 / 1;*/
-/*}*/
-
-
 .container_about_us h1{
 	margin: 25px auto;
   	text-align: center;
@@ -239,6 +198,7 @@ h3  {
 	margin: 10px auto;
 	text-align: justify;
 }
+
 .container_about_us img{
     width: 75%;
 	margin: 10px auto;
@@ -252,6 +212,91 @@ h3  {
 	transition: all 1.2s ease;
 }
 
+/*results search song page*/
+
+.results_search_song {
+    display: grid;
+  	grid-template-columns: repeat(4, minmax(8rem,1fr));
+	grid-auto-rows: 23rem;
+  	grid-gap: 1rem;
+}
+
+.card {
+  	background-color: #ffecec;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  	padding: 1rem;
+	border-radius: 25px;
+	height: 22rem;
+	width: 15rem;
+	align-content: stretch;
+
+}
+.main_container .results_search_song img{
+	margin: 0px auto;
+	border-radius: 50%;
+	width: 10rem;
+}
+.main_container .results_search_song h2{
+	font-size: 18px;
+	text-align: center;
+	margin-bottom: 3px;
+
+}
+
+.main_container .results_search_song h1{
+	font-size: 30px;
+	text-align: center;
+	margin-top: 12px;
+	margin-bottom: 3px;
+}
+/*Playlist*/
+
+.main_container .song_list {
+	display: grid;
+  	grid-template-columns: repeat(4, minmax(8rem,1fr));
+	grid-auto-rows: 12rem;
+	grid-auto-columns: 12rem;
+  	grid-gap: 1rem;
+}
+
+.playlist_card {
+	background-color: #ffecec;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  	padding: 1rem;
+	border-radius: 25px;
+	height: 12rem;
+
+
+}
+
+
+
+
+
+.main_container .song_list img{
+	margin: 0px auto;
+	border-radius: 50%;
+	width: 6rem;
+}
+
+.main_container .song_list h2{
+	font-size: 12px;
+	text-align: center;
+	margin-bottom: 3px;
+	width: content-box;
+
+}
+
+.main_container .song_list h3 {
+	font-size: 16px;
+	text-align: center;
+	margin-top: 12px;
+	margin-bottom: 3px;
+}
+
+
+
+
 
 @media (max-width: 992px){
 	.navbar{
@@ -264,19 +309,28 @@ h3  {
 	.main_container{
 		margin-top: 100px;
 	}
+
+	.results_search_song {
+    display: grid;
+  	grid-template-columns: repeat(2, minmax(6rem,1fr));
 }
 
-@media (max-width: 728px){
-	.navbar{
+
+
+@media (max-width: 728px) {
+	.navbar {
 		height: 60px;
 	}
-	.navbar .inner_navbar{
+
+	.navbar .inner_navbar {
 		flex-direction: row;
 	}
-	.main_container{
+
+	.main_container {
 		margin-top: 60px;
 	}
-	.navbar .menu ul{
+
+	.navbar .menu ul {
 		position: absolute;
 		top: 60px;
 		left: 0;
@@ -284,15 +338,18 @@ h3  {
 		background: #090f1b;
 		width: 100%;
 	}
-	.navbar .menu ul li{
+
+	.navbar .menu ul li {
 		padding-bottom: 10px;
 	}
-	.navbar .menu ul li a{
+
+	.navbar .menu ul li a {
 		width: 100%;
 		margin: 0px 0px;
 		padding: 12px;
 	}
-	.navbar .hamburger{
+
+	.navbar .hamburger {
 		display: block;
 		position: absolute;
 		top: 15px;
@@ -302,16 +359,24 @@ h3  {
 		cursor: pointer;
 		transition: all 0.2s ease;
 	}
-	.navbar .hamburger:hover{
+
+	.navbar .hamburger:hover {
 		color: #fcbbc6;
 	}
-	.navbar .menu{
+
+	.navbar .menu {
 		display: none;
 	}
-	.navbar .menu.active{
+
+	.navbar .menu.active {
 		display: block;
 	}
-	.main_container .content .item_wrap{
+
+	.main_container .content .item_wrap {
 		width: 100%;
 	}
-}
+
+	.results_search_song {
+		display: grid;
+		grid-template-columns: repeat(1, minmax(6rem, 1fr));
+	}}}

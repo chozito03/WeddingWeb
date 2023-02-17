@@ -1,11 +1,14 @@
+from datetime import datetime
 from urllib.parse import urlencode
 
 from django.contrib import messages
 from django.contrib.auth import get_user_model, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
+
 from django.template import context
 from django.urls import reverse_lazy, reverse
 from django.views import generic
@@ -21,8 +24,7 @@ from spotipy.oauth2 import SpotifyOAuth
 from django.shortcuts import render
 from django.conf import settings
 from weddingweb.settings import SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI, SPOTIFY_SCOPES
-from django.forms.models import model_to_dict
-
+from django.forms import DateTimeField
 
 
 class UsernameForm(forms.Form):
@@ -152,7 +154,11 @@ def search_song(request):
 
         results = sp.search(q='artist:' + artist + ' track:' + track, limit=10, type='track')
 
-        return render(request, 'results.html', {'results': results})
+        if results['tracks']['total'] == 0:
+            message = "Zadana skladba sa nenasla na Spotify."
+            return render(request, 'search.html', {'message': message})
+        else:
+            return render(request, 'results.html', {'results': results})
     return render(request, 'search.html')
 
 
@@ -164,7 +170,20 @@ def add_to_playlist(request):
         album = request.POST.get('album')
         spotify_id = request.POST.get('spotify_id')
         preview_url = request.POST.get('preview_url')
+        external_urls = request.POST.get('external_urls')
         image_url = request.POST.get('image_url')
+
+
+        # kontrola, či sa skladba už nachádza v databáze
+        if Song.objects.filter(name=name, artist=artist, album=album).exists():
+            message = f"Hupps, skladba {name} od {artist} už je v svadobnom playliste!"
+            return render(request, 'search.html', {'message': message})
+
+        # kontrola, či používateľ už pridal maximálny počet piesní
+        user = request.user
+        if user.user_song.count() >= 5:
+            message = "Nemôžete pridať viac ako 5 piesní."
+            return render(request, 'search.html', {'message': message})
 
         # Vytvorte inštanciu Song pre novú skladbu
         new_song = Song(
@@ -173,11 +192,23 @@ def add_to_playlist(request):
             album=album,
             spotify_id=spotify_id,
             preview_url=preview_url,
+            external_urls=external_urls,
             image_url=image_url,
+            created=datetime.now(),
+            user=user,
         )
         new_song.save()
-        return render(request, 'search.html')
+        message = f"Vyborne! Skladba {name} od {artist} sa pridala do svadobneho playlistu."
+        return render(request, 'search.html', {'message': message})
     return render(request, 'search.html')
+
+
+@login_required
+def song_list(request):
+    songs = Song.objects.all()
+    return render(request, 'playlist.html', {'songs': songs})
+
+
 # def add_to_playlist(request, track_id):
 #     client_id = SPOTIPY_CLIENT_ID
 #     client_secret = SPOTIPY_CLIENT_SECRET

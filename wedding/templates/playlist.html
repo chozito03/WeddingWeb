@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Playlist{% endblock %}
+
+{% block content %}
+{% include 'search.html' %}
+<div class="main_container">
+    <h1>Svadebny playlist</h1>
+    <div class="song_list">
+            {% for song in songs %}
+            <div class="playlist_card">
+                    <img src="{{ song.image_url }}" alt="cover song image">
+                    <h2>{{ song.name }}</h2>
+                    <h3>{{ song.artist }}</h3>
+                    <a href="{{ song.preview_url }}" target="_blank">Prehrať</a>
+            </div>
+            {% empty %}
+            <p>V playliste sa nenachádza žiadna skladba.</p>
+
+            {% endfor %}
+
+    </div>
+
+</div>
+{% endblock %}
