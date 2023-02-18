@@ -4,14 +4,18 @@
 {% block title %}search{% endblock %}
 
 {% block content %}
-<div class="main_container">
-    <h2> Tu muzes vyhledat pisen na Spotify a nasledne ju pridat do playlistu</h2>
+<div class="search_song">
+    <div class="search_song_field">
+    <h3> Tady muzes vyhledat song na Spotify a pridat ho do playlistu</h3>
     <form method="post" action="{% url 'search_song' %}">
         {% csrf_token %}
-        <input type="text" name="artist" placeholder="Umelec">
-        <input type="text" name="track" placeholder="Název songu">
-        <input type="submit" value="Hledej">
+        <div class="imeer_search_song_field">
+            <input type="text" name="artist" placeholder="Umelec">
+            <input type="text" name="track" placeholder="Název songu">
+        </div>
+        <button type="submit">Hledaj</button>
         <h2>{{ message }}</h2>
     </form>
+    </div>
 </div>
 {% endblock %}

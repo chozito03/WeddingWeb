@@ -152,7 +152,7 @@ def search_song(request):
         client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
         sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
-        results = sp.search(q='artist:' + artist + ' track:' + track, limit=10, type='track')
+        results = sp.search(q='artist:' + artist + ' track:' + track, limit=30, type='track')
 
         if results['tracks']['total'] == 0:
             message = "Zadana skladba sa nenasla na Spotify."

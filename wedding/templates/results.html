@@ -4,18 +4,16 @@
 {% block title %}results{% endblock %}
 
 {% block content %}
-<div class="main_container">
-    <div class="results_search_song">
-
+{% include 'search.html' %}
+<div class="results_search_song">
+    <div class="card">
         {% for result in results.tracks.items %}
-        <div class="card">
+        <div class="immer_card">
             <img src="{{ result.album.images.0.url }}" alt="cover song image">
-            <h1>{{ result.artists.0.name }} </h1>
-            <h2>{{ result.name }}</h2>
-            <a href="{{ result.external_urls.spotify }}" target="_blank">Odkaz na Spotify track</a>
-            <a href="{{ result.preview_url }}" target="_blank">Prehrat</a>
+            <h1>{{ result.artists.0.name|truncatechars:18 }} </h1>
+            <h2>{{ result.name|truncatechars:25 }}</h2>
             <form method="post" action="{% url 'add_to_playlist' %}">
-              {% csrf_token %}
+                {% csrf_token %}
                 <input type="hidden" name="name" value="{{ result.name }}">
                 <input type="hidden" name="artist" value="{{ result.artists.0.name }}">
                 <input type="hidden" name="album" value="{{ result.album.name }}">
@@ -25,6 +23,8 @@
                 <input type="hidden" name="image_url" value="{{ result.album.images.0.url }}">
                 <button type="submit">Pridať do playlistu</button>
             </form>
+            <a href="{{ result.preview_url }}" target="_blank">Prehrat</a>
+            <a href="{{ result.external_urls.spotify }}" target="_blank">Odkaz na Spotify</a>
         </div>
         {% endfor %}
     </div>
