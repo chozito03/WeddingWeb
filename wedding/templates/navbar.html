@@ -14,7 +14,13 @@
                     <li><a href="{% url 'invitation' %}">Svatební oznámení</a></li>
                     <li><a href="{% url 'verify_username' %}">Registrace hosta</a></li>
                     {% if request.user.is_authenticated %}
-                    <li><a href="{% url 'playlist' %}">Playlist</a></li>
+                    <li class="dropdown">
+                        <a href="{% url 'playlist' %}">Playlist</a>
+                        <div class="dropdown_content">
+                            <a href="#">Podpoložka 1</a>
+                            <a href="#">Podpoložka 2</a>
+                        </div>
+                    </li>
                     {% endif %}
 
                   </ul>

@@ -73,12 +73,7 @@ body{
 .navbar{
 	width: 100%;
 	height: 70px;
-	background: linear-gradient(
-		90deg,
-		#2a2a2a 0%,
-		#232323 25%,
-		#232323 75%,
-		#2a2a2a 100%);
+	background: #232323;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -102,7 +97,7 @@ body{
 	font-weight: 700;
 	font-size: 22px;
 	letter-spacing: 2px;
-	color: #fff;
+	color: #dedede;
 }
 
 .navbar .menu ul{
@@ -110,25 +105,44 @@ body{
 }
 
 .navbar .menu ul li a{
-	width: 130px;
-	margin: 0px 5px;
+	width: 8rem;
+	margin: 5px 5px;
 	display: block;
 	text-align: center;
-	padding: 10px 0px;
+	padding: 10px 1px;
 	border-radius: 25px;
-	color: #fff;
+	color: #dedede;
 	text-transform: uppercase;
 	font-size: 0.72rem;
 	transition: all 0.2s ease;
 }
 
-.navbar .menu ul li:last-child a{
-	margin-right: 0;
-}
+
 
 .navbar .menu ul li a:hover,
 .navbar .menu ul li a.active{
 	background: #e2bdc6;
+}
+
+
+
+.dropdown {
+  	position: relative;
+}
+
+.dropdown_content {
+  	display: none;
+  	position: absolute;
+  	z-index: 1;
+	background: #232323;
+	height: auto;
+	border-bottom-right-radius: 1rem;
+	border-bottom-left-radius: 1rem;
+}
+
+
+.dropdown:hover .dropdown_content {
+  	display: block;
 }
 
 /*.main_container ul li a  {*/
@@ -202,7 +216,7 @@ body{
 	margin: 120px auto;
 }
 .card {
-	margin: 0px auto;
+	margin: auto;
     display: grid;
     grid-template-columns: repeat(4, minmax(14rem,1fr));
     grid-auto-rows: 23rem;
@@ -399,7 +413,8 @@ body{
 	margin: 0rem 1rem 1rem 1rem;
 }
 
-@media (max-width: 992px){
+@media (max-width: 992px)
+{
 	.navbar{
 		height: 100px;
 		padding: 12px;
@@ -474,6 +489,22 @@ body{
 	.navbar .menu.active {
 		display: block;
 	}
+	.menu.active ul{
+		background: #232323;
+		border-bottom-left-radius: 1rem;
+		border-bottom-right-radius: 1rem;
+	}
+
+	.menu.active ul li,
+	.menu.active .dropdown .dropdown_content{
+		width: 12rem;
+		margin: 0rem auto;
+	}
+
+	.menu.active .dropdown .dropdown_content a{
+		width: 10rem;
+		margin: 1rem auto;
+	}
 
 	.main_container .content .item_wrap {
 		width: 100%;
@@ -486,4 +517,5 @@ body{
 	.search_song{
 	width: 21rem;
 	}
-}}
+}
+}
