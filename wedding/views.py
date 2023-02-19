@@ -1,26 +1,22 @@
 from datetime import datetime
 from urllib.parse import urlencode
-
+from django.utils import timezone
+import pytz
 from django.contrib import messages
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
-from django.template import context
 from django.urls import reverse_lazy, reverse
 from django.views import generic
-from spotipy import util
 
-from weddingweb import settings
 from django import forms
-
 from wedding.models import InvitedGuests, Song
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth
 from django.shortcuts import render
 from django.conf import settings
 from weddingweb.settings import SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI, SPOTIFY_SCOPES
@@ -117,9 +113,54 @@ class SignUpView(generic.CreateView):
     template_name = 'signup.html'
 """
 
-
 def home(request):
-    return render(request, 'home.html')
+    # získanie časového pásma používateľa
+    user_tz = request.META.get('TZ', 'UTC')
+    user_timezone = pytz.timezone(user_tz)
+
+    # získanie aktuálneho dátumu a času v používateľovom časovom pásme
+    wedding_date = datetime(2023, 3, 2, 12, tzinfo=pytz.utc)
+    current_date = timezone.now().astimezone(user_timezone)
+    time_left = wedding_date - current_date
+
+    days_left = time_left.days
+    if days_left == 1:
+        days_text = "den"
+    else:
+        days_text = "dní"
+
+    hours, remainder = divmod(time_left.seconds, 3600)
+    if hours == 1:
+        hours_text = "hodina"
+    elif 1 < hours < 5:
+        hours_text = "hodiny"
+    else:
+        hours_text = "hodín"
+
+    minutes, seconds = divmod(remainder, 60)
+    if minutes == 1:
+        minutes_text = "minúta"
+    elif 1 < minutes < 5:
+        minutes_text = "minúty"
+    else:
+        minutes_text = "minút"
+
+    if seconds == 1:
+        seconds_text = "sekunda"
+    else:
+        seconds_text = "sekúnd"
+
+    context = {
+        'days': days_left,
+        'days_text': days_text,
+        'hours': hours,
+        'hours_text': hours_text,
+        'minutes': minutes,
+        'minutes_text': minutes_text,
+        'seconds': seconds,
+        'seconds_text': seconds_text,
+    }
+    return render(request, 'home.html', context)
 
 
 def about_us(request):
@@ -147,12 +188,24 @@ def search_song(request):
         artist = request.POST.get('artist')
         track = request.POST.get('track')
 
+        # Uloží posledné hodnoty vyhladávacieho pola do session
+        request.session['last_artist'] = artist
+        request.session['last_track'] = track
+
         client_id = SPOTIPY_CLIENT_ID
         client_secret = SPOTIPY_CLIENT_SECRET
         client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
         sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
-        results = sp.search(q='artist:' + artist + ' track:' + track, limit=30, type='track')
+        if artist and track:
+            results = sp.search(q='artist:' + artist + ' track:' + track, limit=30, type='track')
+        elif artist:
+            results = sp.search(q='artist:' + artist, limit=50, type='track')
+        elif track:
+            results = sp.search(q='track:' + track, limit=50, type='track')
+        else:
+            message = "Prosím, zadajte aspoň jedno kritérium."
+            return render(request, 'search.html', {'message': message})
 
         if results['tracks']['total'] == 0:
             message = "Zadana skladba sa nenasla na Spotify."

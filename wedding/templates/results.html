@@ -1,10 +1,9 @@
-
-
-
 {% block title %}Results{% endblock %}
 
 {% block content %}
+
 {% include 'search.html' %}
+
 <div class="results_search_song">
     <div class="card">
         {% for result in results.tracks.items %}

@@ -3,14 +3,15 @@
 {% block title %}HOME{% endblock %}
 
 {% block content %}
+
+<!--<meta http-equiv="refresh" content="1">-->
+
 <div class="main_container">
     <h1>Náš svatební den</h1>
     <h2>Veronika & Josef</h2>
-    {% if error_message %}
-        <div class="error_message">{{ error_message }}</div>
-    {% else %}
-        <p>Under construction.</p>
-    {% endif %}
+    <p>Do nášho svadobného dňa zostáva:</p>
+    <h2>{{ days }} {{ days_text }}</h2>
+    <p>{{ hours }} {{ hours_text }} {{ minutes }} {{ minutes_text }} {{ seconds }} {{ seconds_text }}.</p>
 </div>
 {% endblock %}
 
