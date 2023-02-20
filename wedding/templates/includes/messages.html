@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% if messages %}
+
+        {% for message in messages %}
+            <div class="error" {% if message.tags %}alert-{% if message.tags =='error' %}danger{% else %}{% endif %}{% endif %}>{{ message }}</div>
+        {% endfor %}
+
+{% endif %}

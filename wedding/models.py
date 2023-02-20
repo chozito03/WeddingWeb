@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField, DateTimeField, \
-    BooleanField
+    BooleanField, PositiveSmallIntegerField, TextField
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.contrib.auth import get_user_model
 
 
 class City(Model):
@@ -55,10 +58,35 @@ class Song(Model):
 
 class Requests(Model):
     username = ForeignKey(User, null=False, on_delete=CASCADE)
+    age = PositiveSmallIntegerField(null=True)
     hotel = BooleanField()
     kids = BooleanField()
+    vegetarian_food = BooleanField(null=True)
     takeaway_to_restaurant = BooleanField()
     takeaway_to_home = BooleanField()
+    completed = BooleanField(default=False)
 
     def __str__(self):
         return self.username.username
+
+class Gifts(Model):
+    name = CharField(max_length=200)
+    description = TextField(null=True)
+    link = CharField(max_length=200)
+    sorted_by = ForeignKey(User, on_delete=CASCADE, null=True, blank=True)
+    selected = BooleanField(default=False)
+
+    class Meta:
+        ordering = ['name']
+    def __str__(self):
+        return f'{self.name}'
+
+"""
+class FilledSurvey(Model):
+    user = ForeignKey(User, on_delete=CASCADE)
+    survey = ForeignKey('Requests', on_delete=CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'survey')
+"""
+

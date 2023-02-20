@@ -18,6 +18,9 @@
                       {% else %}
                       <li><a href="{% url 'login' %}">Zóna hostů</a></li>
                       {% endif %}
+                        {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'requests_form' %}">Svatební dotazník</a></li>
+                        {% endif %}
                   </ul>
   <!--              </nav>-->
               </div>

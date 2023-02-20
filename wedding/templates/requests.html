@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% include 'includes/messages.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="main_container">
+    <h2>Vyplňte prosím svatební dotazník</h2>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Uložit</button>
+    </form>
+    </div>
+
+{% endblock %}

@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth.decorators import login_required
 from wedding.views import home, about_us, news, invitation, about_wedding, verify_username, registration, search_song, \
-    add_to_playlist
+    add_to_playlist, requests_form, success_view, GiftsView, GiftDetailView, gift_select
 
 
 urlpatterns = [
@@ -32,6 +33,12 @@ urlpatterns = [
     path('search/', search_song, name='search_song'),
     path('add_to_playlist/', add_to_playlist, name='add_to_playlist'),
     path('registration/<username>/', registration, name='registration'),
+    path('requests/', login_required(requests_form), name='requests_form'),
+    path('requests/success/', success_view, name='success'),
+    path('gifts/', login_required(GiftsView.as_view()), name='gifts'),
+    path('gifts/<pk>/', login_required(GiftDetailView.as_view()), name='gift-detail'),
+    path('gifts/<int:pk>/select/', gift_select, name='gift-select'),
+
 ]
 
 

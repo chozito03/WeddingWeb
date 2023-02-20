@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from wedding.models import City, Family, InvitedGuests, Song, Requests
+from wedding.models import City, Family, InvitedGuests, Song, Requests, Gifts
 
 # Register your models here.
 admin.site.register(City)
@@ -8,3 +8,4 @@ admin.site.register(Family)
 admin.site.register(InvitedGuests)
 admin.site.register(Song)
 admin.site.register(Requests)
+admin.site.register(Gifts)

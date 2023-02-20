@@ -199,6 +199,11 @@ h3  {
 	letter-spacing: 0.1rem;
 }
 
+.error {
+  margin-down: 150px;
+}
+
+
 
 /*.container_about_us {*/
 /*  display: grid;*/

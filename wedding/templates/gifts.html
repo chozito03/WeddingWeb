@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="main_container">
+  <h1>Seznam svatebních darů</h1>
+  <ul>
+    {% for gift in object_list %}
+      <li><a href="{% url 'gift-detail' gift.id %}">{{ gift.name }}</a></li>
+    {% endfor %}
+  </ul>
+</div>>
+{% endblock %}
