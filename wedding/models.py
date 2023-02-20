@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField, DateTimeField
 from django.utils import timezone
+from datetime import datetime
 
 
 class City(Model):
@@ -54,5 +55,5 @@ class Song(Model):
     user = ForeignKey(User, on_delete=CASCADE, null=True, blank=True, related_name='user_song')
 
     def __str__(self):
-        return f'{self.name} {self.artist}'
+        return f'{self.name} {self.artist} {self.created.strftime("%Y-%m-%d %H:%M:%S")}'
 
