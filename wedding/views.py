@@ -1,10 +1,13 @@
+from datetime import datetime
 from urllib.parse import urlencode
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+import pytz
 from django.contrib import messages
 from django.contrib.auth import get_user_model, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import context
 from django.urls import reverse_lazy, reverse
@@ -16,16 +19,16 @@ from weddingweb import settings
 from django import forms
 from django.views.decorators.http import require_POST
 from wedding.models import InvitedGuests, Song, Requests, Gifts
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth
-from django.shortcuts import render
 from django.conf import settings
 from weddingweb.settings import SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI, SPOTIFY_SCOPES
 from django.forms.models import model_to_dict
 from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField, DateTimeField, \
     BooleanField, PositiveSmallIntegerField
-
+from django.forms import DateTimeField
 
 
 class UsernameForm(forms.Form):
@@ -176,7 +179,56 @@ class SignUpView(generic.CreateView):
 
 
 def home(request):
-    return render(request, 'home.html')
+    # getting the user's time zone
+    user_tz = request.META.get('TZ', 'UTC')
+    user_timezone = pytz.timezone(user_tz)
+
+    # Getting the current date and time in the user's timezone.
+    wedding_date = datetime(2023, 3, 2, 12, tzinfo=pytz.utc)
+    current_date = timezone.now().astimezone(user_timezone)
+    time_left = wedding_date - current_date
+
+    days_left = time_left.days
+    # The conditions for correct inflection of the text
+    if days_left == 1:
+        days_text = "den"
+    else:
+        days_text = "dní"
+
+    hours, remainder = divmod(time_left.seconds, 3600)
+    # The conditions for correct inflection of the text in Slovak
+    if hours == 1:
+        hours_text = "hodina"
+    elif 1 < hours < 5:
+        hours_text = "hodiny"
+    else:
+        hours_text = "hodín"
+
+    minutes, seconds = divmod(remainder, 60)
+    # The conditions for correct inflection of the text
+    if minutes == 1:
+        minutes_text = "minúta"
+    elif 1 < minutes < 5:
+        minutes_text = "minúty"
+    else:
+        minutes_text = "minút"
+
+    if seconds == 1:
+        seconds_text = "sekunda"
+    else:
+        seconds_text = "sekúnd"
+
+    context = {
+        'days': days_left,
+        'days_text': days_text,
+        'hours': hours,
+        'hours_text': hours_text,
+        'minutes': minutes,
+        'minutes_text': minutes_text,
+        'seconds': seconds,
+        'seconds_text': seconds_text,
+    }
+    return render(request, 'home.html', context)
 
 
 def about_us(request):
@@ -247,39 +299,81 @@ def search_song(request):
         artist = request.POST.get('artist')
         track = request.POST.get('track')
 
+        # Save the last values of the search field to the session
+        request.session['last_artist'] = artist
+        request.session['last_track'] = track
+
         client_id = SPOTIPY_CLIENT_ID
         client_secret = SPOTIPY_CLIENT_SECRET
         client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
         sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
-        results = sp.search(q='artist:' + artist + ' track:' + track, limit=10, type='track')
+        if artist and track:
+            results = sp.search(q='artist:' + artist + ' track:' + track, limit=30, type='track')
+        elif artist:
+            results = sp.search(q='artist:' + artist, limit=50, type='track')
+        elif track:
+            results = sp.search(q='track:' + track, limit=50, type='track')
+        else:
+            message = "Prosím, zadajte aspoň jedno kritérium."
+            return render(request, 'search.html', {'message': message})
 
-        return render(request, 'results.html', {'results': results})
+        if results['tracks']['total'] == 0:
+            message = "Zadana skladba sa nenasla na Spotify."
+            return render(request, 'search.html', {'message': message})
+        else:
+            return render(request, 'results.html', {'results': results})
     return render(request, 'search.html')
 
 
 def add_to_playlist(request):
     if request.method == 'POST':
-        # Získajte hodnoty z odoslaného formulára
+        # Get values from the submitted form
         name = request.POST.get('name')
         artist = request.POST.get('artist')
         album = request.POST.get('album')
         spotify_id = request.POST.get('spotify_id')
         preview_url = request.POST.get('preview_url')
+        external_urls = request.POST.get('external_urls')
         image_url = request.POST.get('image_url')
 
-        # Vytvorte inštanciu Song pre novú skladbu
+
+        # Check if the song already exists in the database
+        if Song.objects.filter(name=name, artist=artist, album=album).exists():
+            message = f"Hupps, skladba {name} od {artist} už je v svadobnom playliste!"
+            return render(request, 'search.html', {'message': message})
+
+        # Check whether the user has already added the maximum number of songs
+        user = request.user
+        if user.user_song.count() >= 4:
+            message = "Nemôžete pridať viac ako 4 piesní."
+            return render(request, 'search.html', {'message': message})
+
+        # Creating a Song instance for a new track
         new_song = Song(
             name=name,
             artist=artist,
             album=album,
             spotify_id=spotify_id,
             preview_url=preview_url,
+            external_urls=external_urls,
             image_url=image_url,
+            created=datetime.now(),
+            user=user,
         )
         new_song.save()
-        return render(request, 'search.html')
+        message = f"Vyborne! Skladba {name} od {artist} sa pridala do svadobneho playlistu."
+        return render(request, 'search.html', {'message': message})
     return render(request, 'search.html')
+
+
+@login_required
+def song_list(request):
+    songs = Song.objects.all().order_by('-created')
+    return render(request, 'playlist.html', {'songs': songs})
+
+
+
 # def add_to_playlist(request, track_id):
 #     client_id = SPOTIPY_CLIENT_ID
 #     client_secret = SPOTIPY_CLIENT_SECRET

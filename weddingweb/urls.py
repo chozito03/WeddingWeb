@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
 from wedding.views import home, about_us, news, invitation, about_wedding, verify_username, registration, search_song, \
-    add_to_playlist, requests_form, success_view, GiftsView, GiftDetailView, gift_select
+    add_to_playlist, requests_form, success_view, GiftsView, GiftDetailView, gift_select, song_list
 
 
 urlpatterns = [
@@ -30,6 +30,7 @@ urlpatterns = [
     path('invitation/', invitation, name='invitation'),
     path('verify_or_login/', include('django.contrib.auth.urls')),
     path('verify_or_login/verify_username', verify_username, name='verify_username'),
+    path('playlist/', song_list, name='playlist'),
     path('search/', search_song, name='search_song'),
     path('add_to_playlist/', add_to_playlist, name='add_to_playlist'),
     path('registration/<username>/', registration, name='registration'),

@@ -1,0 +1,24 @@
+{% block title %}Playlist{% endblock %}
+
+{% block content %}
+
+{% include 'search.html' %}
+
+<div class="h1_text"><h1>Svadebny playlist</h1></div>
+<div class="playlist">
+    <div class="playlist_card">
+        {% for song in songs %}
+        <div class="immer_playlist_card">
+            <img src="{{ song.image_url }}" alt="cover song image">
+            <div class="text">
+            <h1>{{ song.artist|truncatechars:25 }}</h1>
+            <h2>{{ song.name|truncatechars:30 }}</h2>
+            </div>
+            <a href="{{ song.preview_url }}" target="_blank"><i class="fas fa-play"></i></a>
+        </div>
+        {% empty %}
+        <p>V playliste sa nenachádza žiadna skladba.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

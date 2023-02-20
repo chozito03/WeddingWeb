@@ -1,5 +1,5 @@
 {% load static %}
- <div class="wrapper">
+<div class="wrapper">
     <div class="navbar">
         <div class="inner_navbar">
             <div class="logo">
@@ -21,11 +21,23 @@
                         {% if request.user.is_authenticated %}
                         <li><a href="{% url 'requests_form' %}">Svatební dotazník</a></li>
                         {% endif %}
+
+                    {% if request.user.is_authenticated %}
+                    <li class="dropdown">
+                        <a href="{% url 'playlist' %}">Playlist</a>
+                        <div class="dropdown_content">
+                            <a href="#">Podpoložka 1</a>
+                            <a href="#">Podpoložka 2</a>
+                        </div>
+                    </li>
+                    {% endif %}
+
                   </ul>
   <!--              </nav>-->
               </div>
+
             <div class="hamburger">
-              <i class="fas fa-bars"></i>
-        </div>
+                  <i class="fas fa-bars"></i>
+            </div>
     </div>
- </div>
+</div>

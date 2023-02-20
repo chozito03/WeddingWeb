@@ -5,6 +5,11 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
 
+from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField, DateTimeField
+from django.utils import timezone
+from datetime import datetime
+
+
 
 class City(Model):
     city = CharField(primary_key=True, max_length=64, null=False)
@@ -50,10 +55,13 @@ class Song(Model):
     album = CharField(max_length=200)
     spotify_id = CharField(max_length=200)
     preview_url = CharField(max_length=256, null=True, blank=True)
+    external_urls = CharField(max_length=256, null=True, blank=True)
     image_url = CharField(max_length=256, null=True, blank=True)
+    created = DateTimeField(auto_now_add=True)
+    user = ForeignKey(User, on_delete=CASCADE, null=True, blank=True, related_name='user_song')
 
     def __str__(self):
-        return f'{self.name} {self.artist}'
+        return f'{self.name} {self.artist} {self.created.strftime("%Y-%m-%d %H:%M:%S")}'
 
 
 class Requests(Model):
