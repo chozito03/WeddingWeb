@@ -209,6 +209,7 @@ body{
 	margin: 10px auto;
 	text-align: justify;
 	border-radius: 1.68rem;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .container_about_us i:hover,
