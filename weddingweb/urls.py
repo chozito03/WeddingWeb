@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
+
+
 from wedding.views import home, about_us, news, invitation, about_wedding, verify_username, registration, search_song, \
     add_to_playlist, requests_form, success_view, GiftsView, GiftDetailView, gift_select, song_list
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),

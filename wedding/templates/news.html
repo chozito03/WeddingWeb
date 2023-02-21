@@ -4,7 +4,13 @@
 {% block title %}Aktuality{% endblock %}
 
 {% block content %}
-<div class="main_container">
-    <p>Ve výstavbě</p>
+    <div class="h1_text_news"><h1>Aktuality</h1></div>
+<div class="news">
+{% for new in all_news %}
+    <div class="immer_news">
+    <h2 class="new_date">{{ new.date }}</h2>
+    <p class="new_description">{{ new.description }}</p>
+    </div>
+{% endfor %}
 </div>
 {% endblock %}

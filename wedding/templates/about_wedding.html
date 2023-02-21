@@ -4,8 +4,17 @@
 {% block title %}O svatbě{% endblock %}
 
 {% block content %}
-<div class="main_container">
-    <p>Ve výstavbě</p>
+<div class="container_about_us">
+<div class="immer_container_about_us">
+    {% for line in lines %}
+        {% if line|length <= 10 %}
+            <h1> {{ line }}  </h1>
+        {% endif %}
+        {% if line|length >= 10 %}
+            <p>{{ line }}</p>
+        {% endif %}
+    {% endfor %}
+</div>
 </div>
 
 {% endblock %}

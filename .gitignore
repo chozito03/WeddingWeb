@@ -1,2 +1,3 @@
 .sqlite3
+wedding/migrations/*
 me_asset.py

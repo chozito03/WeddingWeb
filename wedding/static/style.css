@@ -180,17 +180,26 @@ body{
     margin: 125px auto;
     text-align: center;
 	font-size: 0.9rem;
-	letter-spacing: 0.1rem;
+	letter-spacing: 0.07rem;
+}
+
+.immer_container_about_us{
+  	background-color: #ffecec;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	margin: 0.8rem auto ;
+	padding: 0.8rem 0.8rem 2rem 0.8rem;
+	border-radius: 1rem;
+	width: 75%;
 }
 
 .container_about_us h1{
-	margin: 25px auto;
+	margin: 15px auto 25px auto;
   	text-align: center;
 	width: 200px;
 }
 
 .container_about_us p{
-    width: 75%;
+    width: 90%;
 	margin: 10px auto;
 	text-align: justify;
 }
@@ -232,6 +241,7 @@ body{
   	padding: 1rem;
 	border-radius: 25px;
 }
+
 .results_search_song img{
 	margin: 0px auto;
 	border-radius: 50%;
@@ -352,9 +362,7 @@ body{
 /*  search form  */
 
 .search_song {
-	margin-top: 23rem;
-	margin: 0rem auto;
-	margin-top: 6rem;
+	margin: 6rem auto 0 auto;
     display: block;
     align-items: center;
     text-align: center;
@@ -411,6 +419,36 @@ body{
 	text-align: center;
 	margin: 0rem 1rem 1rem 1rem;
 }
+
+
+/*News*/
+
+.h1_text_news h1{
+	text-align: center;
+	margin: 8rem auto 2rem auto;
+}
+
+.news {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	width: 75%;
+	text-align: justify;
+
+}
+.immer_news {
+  	background-color: #ffecec;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	margin: 0.8rem;
+	padding: 0.8rem;
+	border-radius: 1rem;
+	letter-spacing: 0.02rem;
+}
+
+.immer_news h2 {
+	font-size: 1rem;
+}
+
 
 @media (max-width: 992px)
 {
@@ -507,6 +545,12 @@ body{
 
 	.main_container .content .item_wrap {
 		width: 100%;
+	}
+
+	.container_about_us img,
+	.immer_container_about_us{
+    	width: 85%;
+		letter-spacing: 0.02rem;
 	}
 
 	.card, .playlist_card{
