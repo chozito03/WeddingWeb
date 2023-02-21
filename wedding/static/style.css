@@ -445,6 +445,29 @@ body{
 	letter-spacing: 0.02rem;
 }
 
+.likes form {
+	margin: 0 auto;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+
+.likes form button{
+	border-style: none;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	background-color: #efefef;
+}
+
+.likes form button i{
+	font-size: 1rem;
+	color: #bd0e0e;
+
+}
+
+
 .immer_news h2 {
 	font-size: 1rem;
 }

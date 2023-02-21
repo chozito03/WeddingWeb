@@ -249,7 +249,19 @@ def about_wedding(request):
 
 def news(request):
     all_news = New.objects.all().order_by('-created')
-    return render(request, 'news.html', {'all_news': all_news})
+    # získať označené príspevky z sessions
+    user_likes = request.session.get('user_likes', [])
+    if request.method == 'POST':
+        new_id = request.POST.get('new_id')
+        if new_id and int(new_id) not in user_likes:
+            new = New.objects.get(id=int(new_id))
+            new.likes += 1
+            new.save()
+            user_likes.append(int(new_id))
+            # aktualizovať sessions
+            request.session['user_likes'] = user_likes
+    return render(request, 'news.html', {'all_news': all_news, 'user_likes': user_likes})
+
 
 
 

@@ -95,6 +95,7 @@ class New(Model):
     name = CharField(max_length=200)
     date = DateField(null=True, blank=True)
     description = TextField(null=True)
+    likes = IntegerField(default=0)
     created = DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -8,8 +8,16 @@
 <div class="news">
 {% for new in all_news %}
     <div class="immer_news">
-    <h2 class="new_date">{{ new.date }}</h2>
-    <p class="new_description">{{ new.description }}</p>
+        <h2 class="new_date">{{ new.date }}</h2>
+        <p class="new_description">{{ new.description }}</p>
+        <div class="likes">
+            <form method="post" action="{% url 'news' %}">
+                {% csrf_token %}
+                <input type="hidden" name="new_id" value="{{ new.id }}">
+                <p>{{ new.likes }}x</p>
+                <button type="submit" title="Páči sa mi"><i class="fas fa-heart"></i></button>
+            </form>
+        </div>
     </div>
 {% endfor %}
 </div>
