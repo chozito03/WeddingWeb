@@ -18,7 +18,7 @@ from django.db.models.signals import pre_save
 from weddingweb import settings
 from django import forms
 from django.views.decorators.http import require_POST
-from wedding.models import InvitedGuests, Song, Requests, Gifts
+from wedding.models import InvitedGuests, Song, Requests, Gifts, New
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -240,11 +240,30 @@ def about_us(request):
 
 
 def about_wedding(request):
-    return render(request, 'about_wedding.html')
+    with open('data/about_wedding.txt', 'r') as file:
+        file_contents = file.read()
+        lines = file_contents.splitlines()
+    context = {'lines': lines}
+    return render(request, 'about_wedding.html', context)
 
 
 def news(request):
-    return render(request, 'news.html')
+    all_news = New.objects.all().order_by('-created')
+    # získať označené príspevky z sessions
+    user_likes = request.session.get('user_likes', [])
+    if request.method == 'POST':
+        new_id = request.POST.get('new_id')
+        if new_id and int(new_id) not in user_likes:
+            new = New.objects.get(id=int(new_id))
+            new.likes += 1
+            new.save()
+            user_likes.append(int(new_id))
+            # aktualizovať sessions
+            request.session['user_likes'] = user_likes
+    return render(request, 'news.html', {'all_news': all_news, 'user_likes': user_likes})
+
+
+
 
 
 def invitation(request):

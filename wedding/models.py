@@ -5,7 +5,7 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
 
-from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField, DateTimeField
+from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField, DateTimeField, DateField
 from django.utils import timezone
 from datetime import datetime
 
@@ -77,6 +77,7 @@ class Requests(Model):
     def __str__(self):
         return self.username.username
 
+
 class Gifts(Model):
     name = CharField(max_length=200)
     description = TextField(null=True)
@@ -88,6 +89,19 @@ class Gifts(Model):
         ordering = ['name']
     def __str__(self):
         return f'{self.name}'
+
+
+class New(Model):
+    name = CharField(max_length=200)
+    date = DateField(null=True, blank=True)
+    description = TextField(null=True)
+    likes = IntegerField(default=0)
+    created = DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.name}'
+
+
 
 """
 class FilledSurvey(Model):
