@@ -5,11 +5,11 @@
 {% block content %}
 
 <div class="main_container">
-    <div class="signup_form">
-    <h1>Verify Username</h1>
+    <div class="login_form">
+    <h2>Verify Username</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="main_form"> {{ form.as_p }} </div>
         <button type="submit">Verify</button>
     </form>
     {% if form.errors %}

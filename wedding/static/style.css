@@ -137,6 +137,7 @@ body{
 	height: auto;
 	border-bottom-right-radius: 1rem;
 	border-bottom-left-radius: 1rem;
+	text-align: left;
 }
 
 
@@ -190,6 +191,7 @@ body{
 	padding: 0.8rem 0.8rem 2rem 0.8rem;
 	border-radius: 1rem;
 	width: 75%;
+	max-width: 67rem;
 }
 
 .container_about_us h1{
@@ -206,6 +208,7 @@ body{
 
 .container_about_us img{
     width: 75%;
+	max-width: 67rem;
 	margin: 10px auto;
 	text-align: justify;
 	border-radius: 1.68rem;
@@ -434,6 +437,7 @@ body{
 	flex-direction: column;
 	margin: 0 auto;
 	width: 75%;
+	max-width: 60rem;
 	text-align: justify;
 
 }
@@ -478,6 +482,89 @@ body{
 	font-size: 1rem;
 }
 
+
+/* Text login */
+.login_form h2 {
+    text-align: center;
+	font-size: 2rem;
+}
+
+
+/* form field */
+.main_form p {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    width: 200px;
+}
+
+/* description 'username and password' */
+.main_form p label {
+    padding: 5px 0 5px 5px;
+    font-size: 0.8rem;
+}
+
+/* input field */
+.main_container .login_form form p input {
+	background: WHITE;
+	height: 36px;
+    width: 100%;
+    padding-left: 15px;
+	font-size: 0.96rem;
+	letter-spacing: 1px;
+    border: None;
+    border-radius: 25px;
+}
+
+/* submit button */
+.main_container .login_form form button {
+    margin: 15px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 80px;
+    border: None;
+    border-radius: 25px;
+    transition: all 0.6s ease;
+	background-color: #545454;
+	color: #ffffff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* filter movies form field */
+.movie_filter_form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main_container .login_form form button:hover {
+	background-color: #ffecec;
+	color: #545454;
+}
+.down_login_text p {
+    margin: 15px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.down_login_text a {
+    width: 100px;
+    margin: 15px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    line-height: 15px;
+    transition: all 0.3s ease;
+}
+
+.down_login_text a:hover {
+	background-color: #ffecec;
+	color: #545454;
+}
 
 @media (max-width: 992px)
 {

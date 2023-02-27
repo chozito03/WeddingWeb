@@ -21,7 +21,7 @@ from django.views.decorators.http import require_POST
 from wedding.models import InvitedGuests, Song, Requests, Gifts, New
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 
-from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 import spotipy
 from django.conf import settings
 from weddingweb.settings import SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI, SPOTIFY_SCOPES
@@ -232,7 +232,7 @@ def home(request):
 
 
 def about_us(request):
-    with open('data/about_us.txt', 'r') as file:
+    with open('data/about_us.txt', 'r', encoding='utf-8') as file:
         file_contents = file.read()
         lines = file_contents.splitlines()
     context = {'lines': lines}
@@ -240,7 +240,7 @@ def about_us(request):
 
 
 def about_wedding(request):
-    with open('data/about_wedding.txt', 'r') as file:
+    with open('data/about_wedding.txt', 'r', encoding='utf-8') as file:
         file_contents = file.read()
         lines = file_contents.splitlines()
     context = {'lines': lines}
@@ -351,7 +351,7 @@ def add_to_playlist(request):
         name = request.POST.get('name')
         artist = request.POST.get('artist')
         album = request.POST.get('album')
-        spotify_id = request.POST.get('spotify_id')
+        song_id = request.POST.get('song_id')
         preview_url = request.POST.get('preview_url')
         external_urls = request.POST.get('external_urls')
         image_url = request.POST.get('image_url')
@@ -373,7 +373,7 @@ def add_to_playlist(request):
             name=name,
             artist=artist,
             album=album,
-            spotify_id=spotify_id,
+            song_id=song_id,
             preview_url=preview_url,
             external_urls=external_urls,
             image_url=image_url,
@@ -381,6 +381,7 @@ def add_to_playlist(request):
             user=user,
         )
         new_song.save()
+
         message = f"Vyborne! Skladba {name} od {artist} sa pridala do svadobneho playlistu."
         return render(request, 'search.html', {'message': message})
     return render(request, 'search.html')
@@ -393,22 +394,50 @@ def song_list(request):
 
 
 
-# def add_to_playlist(request, track_id):
+
+# def add_song_to_spotify(request):
+#     # Get the song ID from the submitted form
+#     song_id = '6lknMmJZALXxx7emwwZWLX'
+#     client_id = SPOTIPY_CLIENT_ID
+#     client_secret = SPOTIPY_CLIENT_SECRET
+#     # Get the authenticated user's Spotify credentials
+#     sp_oauth = SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri='http://localhost:8000/spotify_callback')
+#     token_info = sp_oauth.get_cached_token()
+#     if not token_info:
+#         auth_url = sp_oauth.get_authorize_url()
+#         return redirect(auth_url)
+#     sp = spotipy.Spotify(auth=token_info['BQDhWFJGCBPFeuTQZ2kgXiitQ8pjK7e3-rtZL15cA04916XuhycfIsb1hm_1IuqxknZZfDiZ8eBRzKQhNLVQn0mJd4A_oB5cJqPqCdArfik_6gsHWVS4MRojN7zNJzDa0Z_67peq5sG2e-q8DRDTAEIu6enLPWagjFlNEVzxCDs1JIVX4LO7RDYDox3IUsckiGOx5OAGzl2FBQcqQHNpJE02gM0_mBPfZXF3AJRuFCG7otZa7tCR7CiNC9eLCKBBEQ'])
+#     playlist_id = '65Gg8X7NVU3g95Az5aXHgo'
+#
+#     # Add the song to the user's playlist
+#     sp.user_playlist_add_tracks(user='21lspgptue3pev6hbwr7fq3ti', playlist_id=playlist_id, tracks=[song_id])
+#
+#     # Render a success message
+#     message = f"The song with ID {song_id} was added to the playlist."
+#     return render(request, 'search.html', {'message': message})
+
+
+
+#
+# def add_song_to_spotify(request):
+#     song_id = '6lknMmJZALXxx7emwwZWLX'
 #     client_id = SPOTIPY_CLIENT_ID
 #     client_secret = SPOTIPY_CLIENT_SECRET
 #     redirect_uri = SPOTIPY_REDIRECT_URI
 #     username = '21lspgptue3pev6hbwr7fq3ti'
-#     scope = SPOTIFY_SCOPES
+#     scope = []
 #
 #     token = util.prompt_for_user_token(username, scope, client_id=client_id, client_secret=client_secret,
-#                                        redirect_uri=redirect_uri)
+#                                        redirect_uri="https://open.spotify.com/playlist/65Gg8X7NVU3g95Az5aXHgo")
 #
 #     if token:
 #         sp = spotipy.Spotify(auth=token)
-#         playlist_id = '65Gg8X7NVU3g95Az5aXHgo?si=de5a72aba64d4d65'
-#         sp.user_playlist_add_tracks(user=sp.current_user()['id'], playlist_id=playlist_id, tracks=[track_id])
-#         return redirect('search.html')
-#     return redirect('search.html')
-
+#         playlist_id = '65Gg8X7NVU3g95Az5aXHgo'
+#         # Add the song to the user's playlist
+#         sp.playlist_add_items(playlist_id, '6lknMmJZALXxx7emwwZWLX')
+#
+#     # Render a success message
+#     message = f"The song with ID {song_id} was added to the playlist."
+#     return render(request, 'search.html', {'message': message})
 
 

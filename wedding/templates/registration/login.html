@@ -4,12 +4,18 @@
 
 {% block content %}
     <div class="main_container">
+    <div class="login_form">
         <h2>Login</h2>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Přihlášení svatebního hosta</button>
+            <div class="main_form"> {{ form.as_p }} </div>
+            <button type="submit">Přihlášení</button>
         </form>
-        You can <a href="{% url 'verify_username' %}">Registrace svatebního hosta</a>.
+        <div class="down_login_text">
+            <p>Do you not have an account?</p>
+            <p>You can</p>
+            <a href="{% url 'verify_username' %}">Registrace svatebního hosta</a>
+        </div>
+    </div>
     </div>
 {% endblock %}
