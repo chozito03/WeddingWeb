@@ -1,11 +1,11 @@
 from django.contrib.auth.models import User
 from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField, DateTimeField, \
-    BooleanField, PositiveSmallIntegerField, TextField
+    BooleanField, PositiveSmallIntegerField, TextField, DateField, SET_NULL, OneToOneField
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
 
-from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField, DateTimeField, DateField
+
 from django.utils import timezone
 from datetime import datetime
 
@@ -80,6 +80,7 @@ class Requests(Model):
 
 class Gifts(Model):
     name = CharField(max_length=200)
+    image_url = CharField(max_length=200, null=True, blank=True)
     description = TextField(null=True)
     link = CharField(max_length=200)
     sorted_by = ForeignKey(User, on_delete=CASCADE, null=True, blank=True)
@@ -101,8 +102,6 @@ class New(Model):
     def __str__(self):
         return f'{self.name}'
 
-
-
 """
 class FilledSurvey(Model):
     user = ForeignKey(User, on_delete=CASCADE)
@@ -111,4 +110,47 @@ class FilledSurvey(Model):
     class Meta:
         unique_together = ('user', 'survey')
 """
+
+class MealCourse(Model):
+    name = CharField(max_length=32, null=False, unique=True)
+
+    def __str__(self):
+        return f'{self.name}'
+
+class DrinksCourse(Model):
+    name = CharField(max_length=32, null=False, unique=True)
+
+
+    def __str__(self):
+        return f'{self.name}'
+
+class Meal(Model):
+    name = CharField(max_length=200)
+    weight = CharField(max_length=200, null=True, blank=True)
+    food_type = ForeignKey(MealCourse, on_delete=CASCADE, null=True, blank=True)
+    for_vegetarian = BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.name}'
+
+class Drinks(Model):
+    name = CharField(max_length=200)
+    volume = CharField(max_length=200, null=True, blank=True)
+    drink_type = ForeignKey(DrinksCourse, on_delete=CASCADE, null=True, blank=True)
+    only_for_adult = BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.name}'
+
+class UserProfile(Model):
+    user = OneToOneField(User, on_delete=CASCADE)
+    chosen_drink_1 = ForeignKey(Drinks, null=True, on_delete=CASCADE, blank=True, related_name='drink1')
+    chosen_drink_2 = ForeignKey(Drinks, null=True, on_delete=CASCADE, blank=True, related_name='drink2')
+    chosen_meal_1 = ForeignKey(Meal, null=True, on_delete=CASCADE, blank=True, related_name='meal1')
+    chosen_meal_2 = ForeignKey(Meal, null=True, on_delete=CASCADE, blank=True, related_name='meal2')
+    chosen_meal_3 = ForeignKey(Meal,  null=True, on_delete=CASCADE, blank=True, related_name='meal3')
+    completed = BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.user}'
 

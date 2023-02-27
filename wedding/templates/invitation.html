@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
+{% load static %}
 
 {% block title %}Svatební oznámení{% endblock %}
 
 {% block content %}
 <div class="main_container">
-    <p>Ve výstavbě</p>
+    <img style="width: 825px; height: 605px;" alt="Image description"
+         src="{% static 'media/invitation.jpg' %}"/>
 </div>
 {% endblock %}

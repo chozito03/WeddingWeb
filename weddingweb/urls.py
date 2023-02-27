@@ -19,7 +19,8 @@ from django.contrib.auth.decorators import login_required
 
 
 from wedding.views import home, about_us, news, invitation, about_wedding, verify_username, registration, search_song, \
-    add_to_playlist, requests_form, success_view, GiftsView, GiftDetailView, gift_select, song_list
+    add_to_playlist, requests_form, success_view, GiftsView, GiftDetailView, gift_select, song_list, set_your_menu, \
+    set_your_vegemenu, set_your_childmenu, set_your_vegechildmenu
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,7 +41,10 @@ urlpatterns = [
     path('gifts/', login_required(GiftsView.as_view()), name='gifts'),
     path('gifts/<pk>/', login_required(GiftDetailView.as_view()), name='gift-detail'),
     path('gifts/<int:pk>/select/', gift_select, name='gift-select'),
-
+    path('menu/', set_your_menu, name='set_your_menu'),
+    path('menu/vegemenu/', set_your_vegemenu, name='set_your_vegemenu'),
+    path('menu/childmenu/', set_your_childmenu, name='set_your_childmenu'),
+    path('menu/vegechildmenu/', set_your_vegechildmenu, name='set_your_vegechildmenu'),
 ]
 
 

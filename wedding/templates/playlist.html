@@ -10,6 +10,7 @@
         {% for song in songs %}
         <div class="immer_playlist_card">
             <img src="{{ song.image_url }}" alt="cover song image">
+
             <div class="text">
             <h1>{{ song.artist|truncatechars:25 }}</h1>
             <h2>{{ song.name|truncatechars:30 }}</h2>

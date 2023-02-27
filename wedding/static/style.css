@@ -482,6 +482,11 @@ body{
 	font-size: 1rem;
 }
 
+.image_gift {
+max-height: 20px;
+overflow: hidden;
+}
+
 
 /* Text login */
 .login_form h2 {
