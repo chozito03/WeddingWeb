@@ -18,7 +18,7 @@ from django.db.models.signals import pre_save
 from weddingweb import settings
 from django import forms
 from django.views.decorators.http import require_POST
-from wedding.models import InvitedGuests, Song, Requests, Gifts, New
+from wedding.models import InvitedGuests, Song, Requests, Gifts, New, Drinks, Meal, DrinksCourse, MealCourse, UserProfile
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -39,6 +39,74 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+
+class ChooseMealOneForm(forms.Form):
+    meal1 = forms.ModelChoiceField(
+        queryset=Meal.objects.filter(food_type__name='předkrm'),
+        empty_label=None,
+        widget=forms.RadioSelect
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['meal1'].widget.attrs.update({'class': 'form-check-input'})
+
+class ChooseMealTwoForm(forms.Form):
+    meal2 = forms.ModelChoiceField(
+        queryset=Meal.objects.filter(food_type__name='polévka'),
+        empty_label=None,
+        widget=forms.RadioSelect
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['meal2'].widget.attrs.update({'class': 'form-check-input'})
+
+class ChooseMealThreeForm(forms.Form):
+    meal3 = forms.ModelChoiceField(
+        queryset=Meal.objects.filter(food_type__name='hlavní chod'),
+        empty_label=None,
+        widget=forms.RadioSelect
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['meal3'].widget.attrs.update({'class': 'form-check-input'})
+
+class ChooseDrinksOneForm(forms.Form):
+    drink1 = forms.ModelChoiceField(
+        queryset=Drinks.objects.filter(drink_type__name='přípitek'),
+        empty_label=None,
+        widget=forms.RadioSelect
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['drink1'].widget.attrs.update({'class': 'form-check-input'})
+
+class ChooseDrinksTwooForm(forms.Form):
+    drink2 = forms.ModelChoiceField(
+        queryset=Drinks.objects.filter(drink_type__name='hlavní chod'),
+        empty_label=None,
+        widget=forms.RadioSelect
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['drink2'].widget.attrs.update({'class': 'form-check-input'})
+
+class ChooseDrinksTwooChildForm(forms.Form):
+    drink2 = forms.ModelChoiceField(
+        queryset=Drinks.objects.filter(drink_type__name='hlavní chod', only_for_adult=False),
+        empty_label=None,
+        widget=forms.RadioSelect
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['drink2'].widget.attrs.update({'class': 'form-check-input'})
+
+
 
 class RequestsForm(forms.ModelForm):
 
@@ -81,8 +149,9 @@ def success_view(request):
 @login_required
 def requests_form(request):
     if Requests.objects.filter(username=request.user, completed=True).exists():
-        messages.error(request, 'Dotazník již byl vyplněn!')
-        return redirect('home')
+
+        message = "Dotazník jste již vyplnil!"
+        return render(request, 'home.html', {'message': message})
     if request.method == 'POST':
         form = RequestsForm(request.POST)
         if form.is_valid():
@@ -90,7 +159,7 @@ def requests_form(request):
             request_object.username = request.user
             request_object.completed = True
             request_object.save()
-            messages.success(request, 'Formulář byl úspěšně odeslán!')
+
             return redirect('success')
     else:
         form = RequestsForm()
@@ -151,8 +220,10 @@ def registration(request, username):
             user.last_name = invited_guest.last_name
             user.save()
 
-            messages.success(request, 'Your account has been created! You are now able to log in.')
-            return redirect('home')
+            user_profile = UserProfile.objects.create(user=user)
+
+            message = "Váš účet byl vytvořen. Můžete se přihlásit!"
+            return render(request, 'home.html', {'message': message})
     else:
         form = UserRegistrationForm(initial={
             'username': username,
@@ -163,8 +234,281 @@ def registration(request, username):
 
     return render(request, 'registration.html', {'form': form, 'invited_guest': invited_guest})
 
+def set_your_vegechildmenu(request):
+    user_profile = get_object_or_404(UserProfile, user=request.user)
 
+    if UserProfile.objects.filter(user=request.user, completed=True).exists():
+
+        message = "Dotazník jste již vyplnil!"
+        return render(request, 'home.html', {'message': message})
+
+    vege_meal1 = Meal.objects.filter(food_type__name='předkrm', for_vegetarian=True).first()
+
+    user_profile.chosen_meal_1 = vege_meal1
+    user_profile.save()
+
+    vege_meal2 = Meal.objects.filter(food_type__name='polévka', for_vegetarian=True).first()
+
+    user_profile.chosen_meal_2 = vege_meal2
+    user_profile.save()
+
+    vege_meal3 = Meal.objects.filter(food_type__name='hlavní chod', for_vegetarian=True).first()
+
+    user_profile.chosen_meal_3 = vege_meal3
+    user_profile.save()
+
+    child_drink1 = Drinks.objects.filter(drink_type__name='přípitek', only_for_adult=False).first()
+
+    user_profile.chosen_drink_1 = child_drink1
+    user_profile.save()
+
+    form_1 = None
+
+    if request.method == 'POST':
+
+        form_1 = ChooseDrinksTwooChildForm(request.POST)
+        if form_1.is_valid():
+            chosen_drink_2 = form_1.cleaned_data['drink2']
+            user_profile.chosen_drink_2 = chosen_drink_2
+            user_profile.completed = True
+            user_profile.save()
+
+
+        return redirect('success')
+
+    else:
+        form_1 = ChooseDrinksTwooChildForm()
+
+
+    context = {
+        'user_profile': user_profile,
+        'vege_meal1': vege_meal1,
+        'vege_meal2': vege_meal2,
+        'vege_meal3': vege_meal3,
+        'child_drink1': child_drink1,
+        'form_1': form_1,
+    }
+
+    return render(request, 'vegechildmenu.html', context)
+
+def set_your_vegemenu(request):
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+
+    if UserProfile.objects.filter(user=request.user, completed=True).exists():
+
+        message = "Dotazník jste již vyplnil!"
+        return render(request, 'home.html', {'message': message})
+
+    vege_meal1 = Meal.objects.filter(food_type__name='předkrm', for_vegetarian=True).first()
+
+    user_profile.chosen_meal_1 = vege_meal1
+    user_profile.save()
+
+    vege_meal2 = Meal.objects.filter(food_type__name='polévka', for_vegetarian=True).first()
+
+    user_profile.chosen_meal_2 = vege_meal2
+    user_profile.save()
+
+    vege_meal3 = Meal.objects.filter(food_type__name='hlavní chod', for_vegetarian=True).first()
+
+    user_profile.chosen_meal_3 = vege_meal3
+    user_profile.save()
+
+    form_1 = None
+    form_2 = None
+
+    if request.method == 'POST':
+
+        form_1 = ChooseDrinksOneForm(request.POST)
+        if form_1.is_valid():
+            chosen_drink_1 = form_1.cleaned_data['drink1']
+            user_profile.chosen_drink_1 = chosen_drink_1
+            user_profile.save()
+
+        form_2 = ChooseDrinksTwooForm(request.POST)
+        if form_2.is_valid():
+            chosen_drink_2 = form_2.cleaned_data['drink2']
+            user_profile.chosen_drink_2 = chosen_drink_2
+            user_profile.completed = True
+            user_profile.save()
+
+        return redirect('success')
+
+    else:
+        form_1 = ChooseDrinksOneForm()
+        form_2 = ChooseDrinksTwooForm()
+
+    context = {
+        'user_profile': user_profile,
+        'vege_meal1': vege_meal1,
+        'vege_meal2': vege_meal2,
+        'vege_meal3': vege_meal3,
+        'form_1': form_1,
+        'form_2': form_2,
+    }
+
+    return render(request, 'vegemenu.html', context)
+
+def set_your_childmenu(request):
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+
+    if UserProfile.objects.filter(user=request.user, completed=True).exists():
+        message = "Dotazník jste již vyplnil!"
+        return render(request, 'home.html', {'message': message})
+
+    child_drink1 = Drinks.objects.filter(drink_type__name='přípitek', only_for_adult=False).first()
+
+    user_profile.chosen_drink_1 = child_drink1
+    user_profile.save()
+
+    form_1 = None
+    form_2 = None
+    form_3 = None
+    form_4 = None
+
+    if request.method == 'POST':
+
+        form_1 = ChooseMealOneForm(request.POST)
+        if form_1.is_valid():
+            chosen_meal_1 = form_1.cleaned_data['meal1']
+            user_profile.chosen_meal_1 = chosen_meal_1
+            user_profile.save()
+
+        form_2 = ChooseMealTwoForm(request.POST)
+        if form_2.is_valid():
+            chosen_meal_2 = form_2.cleaned_data['meal2']
+            user_profile.chosen_meal_2 = chosen_meal_2
+            user_profile.save()
+
+        form_3 = ChooseMealThreeForm(request.POST)
+        if form_3.is_valid():
+            chosen_meal_3 = form_3.cleaned_data['meal3']
+            user_profile.chosen_meal_3 = chosen_meal_3
+            user_profile.save()
+
+        form_4 = ChooseDrinksTwooChildForm(request.POST)
+        if form_4.is_valid():
+            chosen_drink_2 = form_4.cleaned_data['drink2']
+            user_profile.chosen_drink_2 = chosen_drink_2
+            user_profile.completed = True
+            user_profile.save()
+
+        return redirect('success')
+
+    else:
+        form_1 = ChooseMealOneForm()
+        form_2 = ChooseMealTwoForm()
+        form_3 = ChooseMealThreeForm()
+        form_4 = ChooseDrinksTwooChildForm()
+
+    context = {
+        'user_profile': user_profile,
+        'child_drink1': child_drink1,
+        'form_1': form_1,
+        'form_2': form_2,
+        'form_3': form_3,
+        'form_4': form_4,
+    }
+
+    return render(request, 'childmenu.html', context)
+
+def set_your_menu(request):
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    # Check if user has filled out the basic wedding questionnaire
+    if not Requests.objects.filter(username=request.user).exists():
+        message = "Pro výběr svatebního menu musíte nejprve vyplnit svatební dotazník!"
+        return render(request, 'home.html', {'message': message})
+
+    # kontrola, zda už to dříve nevyplnil menu
+    if UserProfile.objects.filter(user=request.user, completed=True).exists():
+
+        message = "Dotazník jste již vyplnil!"
+        return render(request, 'home.html', {'message': message})
+
+
+    user_vegetarian_and_child = Requests.objects.filter(username=request.user, vegetarian_food=True, age__lt=18).exists()
+    user_vegetarian = Requests.objects.filter(username=request.user, vegetarian_food=True).exists()
+    user_child = Requests.objects.filter(age__lt=18, username=request.user).exists()
+
+    context = {
+        'user_profile': user_profile,
+        'user_vegetarian_and_child': user_vegetarian_and_child,
+        'user_vegetarian': user_vegetarian,
+        'user_child': user_child,
+        }
+
+    if user_vegetarian_and_child:
+        return redirect('set_your_vegechildmenu')
+
+    if user_vegetarian:
+        return redirect('set_your_vegemenu')
+
+    if user_child:
+        return redirect('set_your_childmenu')
+
+    else:
+        form_1 = None
+        form_2 = None
+        form_3 = None
+        form_4 = None
+        form_5 = None
+
+        if request.method == 'POST':
+
+            form_1 = ChooseMealOneForm(request.POST)
+            if form_1.is_valid():
+                chosen_meal_1 = form_1.cleaned_data['meal1']
+                user_profile.chosen_meal_1 = chosen_meal_1
+                user_profile.save()
+
+            form_2 = ChooseDrinksOneForm(request.POST)
+            if form_2.is_valid():
+                chosen_drink_1 = form_2.cleaned_data['drink1']
+                user_profile.chosen_drink_1 = chosen_drink_1
+                user_profile.save()
+
+            form_3 = ChooseMealTwoForm(request.POST)
+            if form_3.is_valid():
+                chosen_meal_2 = form_3.cleaned_data['meal2']
+                user_profile.chosen_meal_2 = chosen_meal_2
+                user_profile.save()
+
+            form_4 = ChooseMealThreeForm(request.POST)
+            if form_4.is_valid():
+                chosen_meal_3 = form_4.cleaned_data['meal3']
+                user_profile.chosen_meal_3 = chosen_meal_3
+                user_profile.save()
+
+            form_5 = ChooseDrinksTwooForm(request.POST)
+            if form_5.is_valid():
+                chosen_drink_2 = form_5.cleaned_data['drink2']
+                user_profile.chosen_drink_2 = chosen_drink_2
+                user_profile.completed = True
+                user_profile.save()
+
+            return redirect('success')
+
+        else:
+            form_1 = ChooseMealOneForm()
+            form_2 = ChooseDrinksOneForm()
+            form_3 = ChooseMealTwoForm()
+            form_4 = ChooseMealThreeForm()
+            form_5 = ChooseDrinksTwooForm()
+
+        context = {
+            'user_profile': user_profile,
+            'user_vegetarian': user_vegetarian,
+            'user_child': user_child,
+            'form_1': form_1,
+            'form_2': form_2,
+            'form_3': form_3,
+            'form_4': form_4,
+            'form_5': form_5,
+            }
+
+        return render(request, 'menu.html', context)
 """
+                           
 class SignUpForm(UserCreationForm):
     class Meta:
         model = get_user_model()
@@ -232,7 +576,7 @@ def home(request):
 
 
 def about_us(request):
-    with open('data/about_us.txt', 'r') as file:
+    with open('data/about_us.txt', 'r', encoding='utf-8') as file:
         file_contents = file.read()
         lines = file_contents.splitlines()
     context = {'lines': lines}
@@ -240,7 +584,7 @@ def about_us(request):
 
 
 def about_wedding(request):
-    with open('data/about_wedding.txt', 'r') as file:
+    with open('data/about_wedding.txt', 'r', encoding='utf-8') as file:
         file_contents = file.read()
         lines = file_contents.splitlines()
     context = {'lines': lines}
@@ -295,8 +639,9 @@ def gift_select(request, pk):
     gift = get_object_or_404(Gifts, pk=pk)
     # Ověření, zda uživatel již nějaký dar vybral
     if Gifts.objects.filter(sorted_by=request.user).exists():
-        messages.warning(request, "Již jste si vybral(a) dárek.")
-        return redirect('gift-detail', pk=pk)
+        message = "Již jste si vybral(a) dárek."
+        return render(request, 'home.html', {'message': message})
+
 
     # Uložení výběru dárku pro daného uživatele
     gift.selected = True

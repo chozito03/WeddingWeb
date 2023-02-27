@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
-{% load static %}
+
+
+
+{% block title %}Svatební dar{% endblock %}
 
 {% block content %}
-  <div class="main_container">
-    <h1>{{ gift.name }}</h1>
-    <p>{{ gift.description }}</p>
-    <p><a href="{{ gift.link }}">Link</a></p>
+<div class="h1_text_news"><h1>Detail svatebního daru</h1></div>
+<div>
+    <div class="h1_text"><h1>{{ gift.name }}</h1></div>
+    <div><img src="{{ gift.image_url }}" alt="image_description"/></div>
+    <div><h2>{{ gift.description }}</h2></div>
+    <div>link: <a href="{{ gift.link }}">link</a></div><
+</div>
      {% if not gift.selected %}
     <form method="post" action="{% url 'gift-select' gift.id %}">
       {% csrf_token %}
@@ -14,5 +20,6 @@
   {% else %}
     <p>Tento dar byl již vybrán.</p>
   {% endif %}
-  </div>
+
+<a href="{% url 'gifts'  %}">Zpět na výběr darů</a>
 {% endblock %}

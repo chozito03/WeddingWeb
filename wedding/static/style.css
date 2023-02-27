@@ -478,6 +478,11 @@ body{
 	font-size: 1rem;
 }
 
+.image_gift {
+max-height: 20px;
+overflow: hidden;
+}
+
 
 @media (max-width: 992px)
 {

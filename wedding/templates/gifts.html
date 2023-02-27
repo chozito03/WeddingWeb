@@ -1,13 +1,24 @@
 {% extends 'base.html' %}
-{% load static %}
+
 
 {% block content %}
 <div class="main_container">
   <h1>Seznam svatebních darů</h1>
-  <ul>
+
+<div class="playlist">
+
     {% for gift in object_list %}
-      <li><a href="{% url 'gift-detail' gift.id %}">{{ gift.name }}</a></li>
+        <div class="immer_playlist_card">
+    {% if gift.selected == False %}
+     <div class="text"><a href="{% url 'gift-detail' gift.id %}">{{ gift.name }}</a></div>
+        <div><img src="{{ gift.image_url }}" alt="image_description"/></div>
+
+     {% endif %}
+        </div>
     {% endfor %}
-  </ul>
-</div>>
+
+</div>
+<h2>{{ message }}</h2>
+</div>
+
 {% endblock %}
