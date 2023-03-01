@@ -5,16 +5,16 @@
 {% block content %}
     <div class="main_container">
     <div class="login_form">
-        <h2>Login</h2>
+        <h2>Přihlášení</h2>
         <form method="post">
             {% csrf_token %}
             <div class="main_form"> {{ form.as_p }} </div>
             <button type="submit">Přihlášení</button>
         </form>
         <div class="down_login_text">
-            <p>Do you not have an account?</p>
-            <p>You can</p>
-            <a href="{% url 'verify_username' %}">Registrace svatebního hosta</a>
+            <p>Ještě nemáš učet?</p>
+            <p>tak přejdi na:</p>
+            <a href="{% url 'verify_username' %}">Registraci</a>
         </div>
     </div>
     </div>

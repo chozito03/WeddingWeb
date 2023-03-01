@@ -6,11 +6,11 @@
 
 <div class="main_container">
     <div class="login_form">
-    <h2>Verify Username</h2>
+    <h2>Ověření hosta</h2>
     <form method="post">
         {% csrf_token %}
         <div class="main_form"> {{ form.as_p }} </div>
-        <button type="submit">Verify</button>
+        <button type="submit">Ověřit</button>
     </form>
     {% if form.errors %}
         <div class="alert alert-danger">

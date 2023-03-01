@@ -5,11 +5,11 @@
 {% block content %}
 <div class="main_container">
     <div class="login_form">
-        <h2>Sign up</h2>
+        <h2>Registrace</h2>
         <form method="post">
             {% csrf_token %}
             <div class="main_form"> {{ form.as_p }} </div>
-            <button type="submit">Registrace hosta</button>
+            <button type="submit">Registrovat</button>
         </form>
     </div>
 </div>

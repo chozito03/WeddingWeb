@@ -144,29 +144,50 @@ body{
 .dropdown:hover .dropdown_content {
   	display: block;
 }
-
-/*.main_container ul li a  {*/
-/*    width: 250px;*/
-/*    align-content: center;*/
-/*	display: flex;*/
-/*	background: rgb(238, 238, 238);*/
-/*	line-height: 20px;*/
-/*	text-align: start;*/
-/*	color: #090f1b;*/
-/*	text-transform: uppercase;*/
-/*	font-size: 16px;*/
-/*	letter-spacing: 1px;*/
-/*	transition: all 0.3s ease;*/
-
-/*}*/
-
-
-
 .main_container{
     display: block;
     align-items: center;
     margin: 100px auto;
     text-align: center;
+}
+
+/*home*/
+
+.home{
+    display: block;
+    align-items: center;
+    margin: 100px auto;
+    text-align: center;
+}
+
+.home img{
+	margin: 2rem auto;
+	width: 45rem;
+}
+
+.immer_home {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1rem;
+}
+
+.immer_home h1{
+	margin: 2rem 0;
+}
+.home .immer_home .countdown {
+	display: flex;
+	flex-direction: column;
+	margin: 2rem 0;
+
+
+
+}
+
+.wedding_date {
+	margin: 2rem 0;
+	font-size: 4rem;
 }
 
 /* about_us */
@@ -482,10 +503,113 @@ body{
 	font-size: 1rem;
 }
 
-.image_gift {
-max-height: 20px;
-overflow: hidden;
+/*requests form*/
+.requests_form{
+ 	background-color: #ffecec;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	margin: 10rem auto ;
+	padding: 0.8rem 0.8rem 2rem 0.8rem;
+	border-radius: 1rem;
+	width: 75%;
+	max-width: 67rem;
 }
+
+.requests_form form ul li{
+	text-align: center ;
+}
+
+.requests_form h2{
+	margin: 1rem auto 1rem auto;
+	font-size: 1.8rem;
+	text-align: center;
+}
+.requests_form h3{
+	margin: 0 auto 1rem auto;
+	font-size: 1.2rem;
+	text-align: center;
+}
+
+.immer_requests_form form p label{
+	font-size: 1.2rem;
+	height: 1.4rem;
+}
+
+#id_age{
+	background: WHITE;
+	width: 3.3rem;
+	height: 1.85rem;
+	padding-left: 1rem;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	font-size: 0.96rem;
+    border: None;
+    border-radius: 1rem;
+	align-items: center;
+}
+
+#id_hotel,
+#id_kids,
+#id_vegetarian_food,
+#id_takeaway_to_restaurant,
+#id_takeaway_to_home{
+	width: 1.2rem;
+	margin-right: 1rem;
+}
+
+.immer_requests_form form p {
+    display: flex;
+    flex-wrap: wrap;
+	justify-content: space-between;
+    margin: 1.13rem auto;
+	text-align: left;
+	width: 26rem;
+}
+
+
+
+/*foods_menu*/
+.foods_menu_form{
+	display: flex;
+	flex-direction: column;
+ 	background-color: #ffecec;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	margin: 10rem auto ;
+	padding: 0.8rem 0.8rem 2rem 0.8rem;
+	border-radius: 1rem;
+	width: 75%;
+	max-width: 67rem;
+}
+
+.immer_foods_menu_form{
+	display: flex;
+	justify-content: center;
+}
+
+.foods_menu_form h2{
+	margin: 1rem auto 1rem auto;
+	font-size: 1.8rem;
+	text-align: center;
+}
+.foods_menu_form h3{
+	margin: 1rem auto 1rem auto;
+	font-size: 1.2rem;
+	text-align: center;
+}
+.immer_foods_menu_form form label {
+    display: flex;
+	justify-content: flex-start;
+	align-items: center;
+    margin: 1.45rem auto ;
+	text-align: left;
+	font-size: 1rem;
+	height: 1.8rem;
+}
+
+.immer_foods_menu_form form label input{
+    margin: 1.9rem 0.67rem 1.9rem 0;
+	width: 1rem;
+	height: 1rem;
+}
+
 
 
 /* Text login */
@@ -522,13 +646,19 @@ overflow: hidden;
 }
 
 /* submit button */
-.main_container .login_form form button {
+.main_container .login_form form button,
+.down_login_text a,
+.immer_requests_form form button,
+.foods_menu,
+.immer_foods_menu_form form button{
     margin: 15px auto;
     display: flex;
+	text-align: center;
+	font-size: 0.77rem;
     align-items: center;
     justify-content: center;
     height: 36px;
-    width: 80px;
+    width: 100px;
     border: None;
     border-radius: 25px;
     transition: all 0.6s ease;
@@ -537,38 +667,52 @@ overflow: hidden;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-/* filter movies form field */
-.movie_filter_form{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-.main_container .login_form form button:hover {
+
+
+.main_container .login_form form button:hover{
 	background-color: #ffecec;
 	color: #545454;
 }
+
+.immer_requests_form form button:hover,
+.foods_menu:hover,
+.immer_foods_menu_form form button:hover{
+	background-color: #e2bdc6;
+	color: #545454;
+}
 .down_login_text p {
-    margin: 15px auto;
+    margin: 5px auto;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .down_login_text a {
-    width: 100px;
     margin: 15px auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: black;
-    line-height: 15px;
-    transition: all 0.3s ease;
+    height: 26px;
+    width: 90px;
+    border: None;
+    border-radius: 25px;
+    transition: all 0.6s ease;
+	background-color: #545454;
+	color: #ffffff;
+	font-size: 0.8rem;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .down_login_text a:hover {
 	background-color: #ffecec;
 	color: #545454;
+}
+
+.image img {
+	width: 250px;
+	border-radius: 50%;
+
 }
 
 @media (max-width: 992px)
@@ -587,7 +731,11 @@ overflow: hidden;
 	.card, .playlist_card{
     display: grid;
   	grid-template-columns: repeat(2, minmax(6rem,1fr));
-}
+	}
+
+	.main_container {
+		margin: 140px auto;
+	}
 
 
 
@@ -603,7 +751,7 @@ overflow: hidden;
 	}
 
 	.main_container {
-		margin-top: 60px;
+		margin: 100px auto;
 	}
 
 	.navbar .menu ul {
@@ -681,5 +829,39 @@ overflow: hidden;
 	.search_song{
 	width: 21rem;
 	}
+	.immer_requests_form form p label,
+	.immer_foods_menu_form form label{
+		font-size: 0.93rem;
+		height: 1.4rem;
+	}
+	.immer_requests_form form p{
+		width: 20rem;
+	}
+
+	#id_hotel,
+	#id_kids,
+	#id_vegetarian_food,
+	#id_takeaway_to_restaurant,
+	#id_takeaway_to_home{
+		width: 1rem;
+	}
+
+
+	.requests_form,
+	.foods_menu_form{
+		width: 85%;
+	}
+
+	.immer_foods_menu_form form label input{
+    margin: 1.9rem 0.43rem 1.9rem 0;
+	width: 0.8rem;
+	height: 0.8rem;
+}
+
+
+
+
+
+
 }
 }

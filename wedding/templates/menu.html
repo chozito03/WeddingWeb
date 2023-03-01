@@ -3,35 +3,37 @@
 {% load static %}
 
 {% block content %}
-    <div class="main_container">
+
+    <div class="foods_menu_form">
     <h2>Zvolte si své svatební menu</h2>
         {% if user_vegetarian %}
-            <div class="main_container">
-            <p>{{ veget_meal1 }}</p>
+            <div class="immer_foods_menu_form">
+                <p>{{ veget_meal1 }}</p>
             </div>
 
 
         {% else %}
-            <div class="main_container">
-            <form method="POST">
-            {% csrf_token %}
-            <h2>Zvolte si předkrm</h2>
-            {{ form_1.as_p }}
-            <input type="hidden" name="form_number" value="1">
-            <h2>Zvolte si přípitek</h2>
-            {{ form_2.as_p }}
-            <input type="hidden" name="form_number" value="2">
-            <h2>Zvolte si polévku</h2>
-            {{ form_3.as_p }}
-            <input type="hidden" name="form_number" value="3">
-            <h2>Zvolte si hlavní chod</h2>
-            {{ form_4.as_p }}
-            <input type="hidden" name="form_number" value="4">
-            <h2>Zvolte si pití k hlavnímu chodu</h2>{{ form_5.as_p }}
-            <input type="hidden" name="form_number" value="5">
-            <button type="submit">Submit</button>
-            </form>
+            <div class="immer_foods_menu_form">
+                <form method="POST">
+                {% csrf_token %}
+                <h3>Zvolte si předkrm</h3>
+                {{ form_1 }}
+                <input type="hidden" name="form_number" value="1">
+                <h3>Zvolte si přípitek</h3>
+                {{ form_2 }}
+                <input type="hidden" name="form_number" value="2">
+                <h3>Zvolte si polévku</h3>
+                {{ form_3 }}
+                <input type="hidden" name="form_number" value="3">
+                <h3>Zvolte si hlavní chod</h3>
+                {{ form_4 }}
+                <input type="hidden" name="form_number" value="4">
+                <h3>Zvolte si pití k hlavnímu chodu</h3>{{ form_5 }}
+                <input type="hidden" name="form_number" value="5">
+                <button type="submit">Odeslat</button>
+                </form>
             </div>
         {% endif %}
-</div>
+    </div>
+
 {% endblock %}

@@ -3,13 +3,16 @@
 {% load static %}
 
 {% block content %}
-    <div class="main_container">
-    <h2>Vyplňte prosím svatební dotazník</h2>
-    <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Uložit</button>
-    </form>
+    <div class="requests_form">
+        <div class="immer_requests_form">
+        <h2>Ahoj {{ request.user.first_name }}!</h2>
+        <h3>Vyplňte prosím svatební dotazník</h3>
+        <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Uložit</button>
+        </form>
+        </div>
     </div>
 
 {% endblock %}

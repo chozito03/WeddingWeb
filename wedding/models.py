@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField, DateTimeField, \
     BooleanField, PositiveSmallIntegerField, TextField, DateField, SET_NULL, OneToOneField
 from django.db.models.signals import pre_save
@@ -66,7 +67,7 @@ class Song(Model):
 
 class Requests(Model):
     username = ForeignKey(User, null=False, on_delete=CASCADE)
-    age = PositiveSmallIntegerField(null=True)
+    age = PositiveSmallIntegerField(null=True, validators=[MinValueValidator(0), MaxValueValidator(120)])
     hotel = BooleanField()
     kids = BooleanField()
     vegetarian_food = BooleanField(null=True)

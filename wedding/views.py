@@ -32,13 +32,14 @@ from django.forms import DateTimeField
 
 
 class UsernameForm(forms.Form):
-    username = forms.CharField(label='Username')
+    username = forms.CharField(label='Overovaci kod:')
 
 
 class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+
 
 class ChooseMealOneForm(forms.Form):
     meal1 = forms.ModelChoiceField(
@@ -51,6 +52,7 @@ class ChooseMealOneForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['meal1'].widget.attrs.update({'class': 'form-check-input'})
 
+
 class ChooseMealTwoForm(forms.Form):
     meal2 = forms.ModelChoiceField(
         queryset=Meal.objects.filter(food_type__name='polévka'),
@@ -61,6 +63,7 @@ class ChooseMealTwoForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['meal2'].widget.attrs.update({'class': 'form-check-input'})
+
 
 class ChooseMealThreeForm(forms.Form):
     meal3 = forms.ModelChoiceField(
@@ -73,6 +76,7 @@ class ChooseMealThreeForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['meal3'].widget.attrs.update({'class': 'form-check-input'})
 
+
 class ChooseDrinksOneForm(forms.Form):
     drink1 = forms.ModelChoiceField(
         queryset=Drinks.objects.filter(drink_type__name='přípitek'),
@@ -83,6 +87,7 @@ class ChooseDrinksOneForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['drink1'].widget.attrs.update({'class': 'form-check-input'})
+
 
 class ChooseDrinksTwooForm(forms.Form):
     drink2 = forms.ModelChoiceField(
@@ -95,6 +100,7 @@ class ChooseDrinksTwooForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['drink2'].widget.attrs.update({'class': 'form-check-input'})
 
+
 class ChooseDrinksTwooChildForm(forms.Form):
     drink2 = forms.ModelChoiceField(
         queryset=Drinks.objects.filter(drink_type__name='hlavní chod', only_for_adult=False),
@@ -105,7 +111,6 @@ class ChooseDrinksTwooChildForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['drink2'].widget.attrs.update({'class': 'form-check-input'})
-
 
 
 class RequestsForm(forms.ModelForm):
@@ -136,15 +141,17 @@ def requests_form(request):
 """
 
 
-
 @receiver(pre_save, sender=Requests)
 def set_request_user(sender, instance, **kwargs):
     # if not instance.user:
         # instance.user = get_user_model().objects.get(pk=instance.username.pk)
     if not instance.username:
             instance.username = instance.user
+
+
 def success_view(request):
     return render(request, 'success.html')
+
 
 @login_required
 def requests_form(request):
@@ -412,6 +419,7 @@ def set_your_childmenu(request):
 
     return render(request, 'childmenu.html', context)
 
+
 def set_your_menu(request):
     user_profile = get_object_or_404(UserProfile, user=request.user)
     # Check if user has filled out the basic wedding questionnaire
@@ -528,7 +536,7 @@ def home(request):
     user_timezone = pytz.timezone(user_tz)
 
     # Getting the current date and time in the user's timezone.
-    wedding_date = datetime(2023, 3, 2, 12, tzinfo=pytz.utc)
+    wedding_date = datetime(2023, 3, 18, 12, tzinfo=pytz.utc)
     current_date = timezone.now().astimezone(user_timezone)
     time_left = wedding_date - current_date
 
@@ -546,21 +554,21 @@ def home(request):
     elif 1 < hours < 5:
         hours_text = "hodiny"
     else:
-        hours_text = "hodín"
+        hours_text = "hodin"
 
     minutes, seconds = divmod(remainder, 60)
     # The conditions for correct inflection of the text
     if minutes == 1:
-        minutes_text = "minúta"
+        minutes_text = "minuta"
     elif 1 < minutes < 5:
-        minutes_text = "minúty"
+        minutes_text = "minuty"
     else:
-        minutes_text = "minút"
+        minutes_text = "minut"
 
     if seconds == 1:
-        seconds_text = "sekunda"
+        seconds_text = "vteřina"
     else:
-        seconds_text = "sekúnd"
+        seconds_text = "vteřin"
 
     context = {
         'days': days_left,
