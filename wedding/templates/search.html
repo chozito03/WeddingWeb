@@ -8,7 +8,7 @@
     <h3> Tady muzes vyhledat song na Spotify a pridat ho do playlistu</h3>
     <form method="post" action="{% url 'search_song' %}">
         {% csrf_token %}
-        <div class="imeer_search_song_field">
+        <div class="inner_search_song_field">
             <input type="text" value="{{ request.session.last_artist }}"name="artist" placeholder="Umelec">
             <input type="text" value="{{ request.session.last_track }}"name="track" placeholder="Název songu">
         </div>

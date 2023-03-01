@@ -1,28 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
-
-
 {% block title %}O nás{% endblock %}
 
 {% block content %}
 
 <div class="container_about_us">
     <img src="{% static 'media/IMG_20211024_173949.jpg' %}" alt="image_description">
-        <div class="immer_container_about_us">
+    <div class="immer_container_about_us">
     {% for line in lines %}
         {% if line|length <= 20 %}
             <h1> {{ line }} <i class="fas fa-heart"></i> </h1>
         {% endif %}
         {% if line|length >= 20 %}
-
-                <p>{{ line }}</p>
-
-
+            <p>{{ line }}</p>
         {% endif %}
-
     {% endfor %}
     </div>
-
 </div>
 
 {% endblock %}

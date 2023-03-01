@@ -3,19 +3,15 @@
 {% block title %}HOME{% endblock %}
 
 {% block content %}
-
 <!--<meta http-equiv="refresh" content="1">-->
-
 <div class="home">
     <div class="immer_home">
-        <h1>Náš svatební den</h1>
-        <h1 class="wedding_date">18. 3. 2023</h1>
+        <img src="{% static 'media/date.png' %}" alt="image_description">
         <div class="countdown">
             <p>To je za :</p>
             <h2>{{ days }} {{ days_text }}</h2>
             <p>{{ hours }} {{ hours_text }} {{ minutes }} {{ minutes_text }} {{ seconds }} {{ seconds_text }}.</p>
         </div>
-        <img alt="Image description" src="{% static 'media/invitation.jpg' %}"/>
     </div>
 </div>
 
