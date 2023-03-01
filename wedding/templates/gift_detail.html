@@ -6,12 +6,13 @@
 
 {% block content %}
 <div class="h1_text_news"><h1>Detail svatebního daru</h1></div>
-<div>
+    <div class="immer_container_about_us">
     <div class="h1_text"><h1>{{ gift.name }}</h1></div>
     <div class="image"><img src="{{ gift.image_url }}" alt="image_description"/></div>
     <div><h2>{{ gift.description }}</h2></div>
-    <div>link: <a href="{{ gift.link }}">link</a></div><
+    <div>link: <a href="{{ gift.link }}">link</a></div>
 </div>
+
      {% if not gift.selected %}
     <form method="post" action="{% url 'gift-select' gift.id %}">
       {% csrf_token %}

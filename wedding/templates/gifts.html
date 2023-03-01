@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
 
-
+{% block title %}Gifts{% endblock %}
 {% block content %}
 <div class="main_container">
 
 <div class="h1_text"><h1>Seznam svatebních darů</h1></div>
 <div class="playlist">
-    <div class="playlist_card">
-        {% for gift in object_list %}
-            <div class="immer_playlist_card">
-                <img src="{{ gift.image_url }}" alt="image_description"/>
-                {% if gift.selected == False %}
-            <div class="text"><a href="{% url 'gift-detail' gift.id %}">{{ gift.name }}</a></div>
+<div class="playlist_card">
+    {% for gift in object_list %}
 
-         {% endif %}
-            </div>
-        {% endfor %}
+    {% if gift.selected == False %}
+        <div class="immer_playlist_card">
+     <div class="text"><a href="{% url 'gift-detail' gift.id %}">{{ gift.name }}</a></div>
+        <div><img src="{{ gift.image_url }}" alt="image_description"/></div>
+        </div>
+     {% endif %}
 
-    </div>
+    {% endfor %}
+</div>
 </div>
 <h2>{{ message }}</h2>
 </div>
