@@ -77,6 +77,17 @@ class Requests(Model):
     def __str__(self):
         return self.username.username
 
+class Messages(Model):
+    author = CharField(max_length=200, null=True)
+    message = TextField(null=True)
+    created = DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created']
+    def __str__(self):
+        return f'{self.author}'
+
+
 
 class Gifts(Model):
     name = CharField(max_length=200)

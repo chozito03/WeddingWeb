@@ -1,0 +1,31 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Svatební vzkazy{% endblock %}
+{% block content %}
+    <div class="main_container">
+  <h1>Vzkazy novomanželům</h1>
+        <h2>Návštěvníci webu mohou zanechat novomanželům vzkazy a gratulace</h2>
+        <div class="playlist">
+            <div class="immer_playlist_card">
+  <ul>
+    {% for message in object_list %}
+        <div class="immer_playlist_card">
+        <div class="text">
+      <li>{{ message.message }} {{ message.author }} ({{ message.created }})</li>
+        </div>
+        </div>
+    {% empty %}
+      <li>Zatím nejsou žádné záznamy.</li>
+    {% endfor %}
+  </ul>
+
+
+</div>
+
+    </div>
+    <a href="{% url 'add_message' %}"><h2>Zanechte svůj vzkaz novomanželům</h2></a></div>
+    </div>
+
+{% endblock %}

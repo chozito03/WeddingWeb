@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Add message{% endblock %}
+{% block content %}
+   <div class="main_container">
+    <div class="login_form">
+   <h2>Zanechte novomanželům vzkaz</h2>
+    <form method="post" action="">
+      {% csrf_token %}
+        <div class="main_form">{{ form }}</div>
+      <button type="submit">Uložit vzkaz</button>
+    </form>
+  </div>
+   </div>
+
+{% endblock %}

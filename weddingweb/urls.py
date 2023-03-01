@@ -20,7 +20,7 @@ from django.contrib.auth.decorators import login_required
 
 from wedding.views import home, about_us, news, invitation, about_wedding, verify_username, registration, search_song, \
     add_to_playlist, requests_form, success_view, GiftsView, GiftDetailView, gift_select, song_list, set_your_menu, \
-    set_your_vegemenu, set_your_childmenu, set_your_vegechildmenu
+    set_your_vegemenu, set_your_childmenu, set_your_vegechildmenu, MessageCreateView, MessagesView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,6 +45,9 @@ urlpatterns = [
     path('menu/vegemenu/', set_your_vegemenu, name='set_your_vegemenu'),
     path('menu/childmenu/', set_your_childmenu, name='set_your_childmenu'),
     path('menu/vegechildmenu/', set_your_vegechildmenu, name='set_your_vegechildmenu'),
+    # path('add_message/', add_message, name='add_message'),
+    path('add_message/', MessageCreateView.as_view(), name='add_message'),
+    path('messages/', MessagesView.as_view(), name='messages'),
 ]
 
 
