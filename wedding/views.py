@@ -1,37 +1,23 @@
 from datetime import datetime
-from urllib.parse import urlencode
-from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 import pytz
 from django.contrib import messages
-from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
-from django.template import context
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views import generic
-from spotipy import util
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
-from weddingweb import settings
 from django import forms
 from django.views.decorators.http import require_POST
-from wedding.models import InvitedGuests, Song, Requests, Gifts, New, Drinks, Meal, DrinksCourse, MealCourse, \
+from wedding.models import InvitedGuests, Song, Requests, Gifts, New, Drinks, Meal, \
     UserProfile, Messages
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
+from django.http import HttpResponse
+from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
-from django.conf import settings
-from weddingweb.settings import SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI, SPOTIFY_SCOPES
-from django.forms.models import model_to_dict
-from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField, DateTimeField, \
-    BooleanField, PositiveSmallIntegerField
-from django.forms import DateTimeField
-from django.views.generic import TemplateView, ListView, FormView, \
-    CreateView, UpdateView, DeleteView
+from weddingweb.settings import SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET
 
 
 class UsernameForm(forms.Form):
@@ -39,6 +25,12 @@ class UsernameForm(forms.Form):
 
 
 class UserRegistrationForm(UserCreationForm):
+    username = forms.CharField(label='Overovaci kod:')
+    first_name = forms.CharField(label='Jméno:')
+    last_name = forms.CharField(label='Příjmení')
+    password1 = forms.CharField(label='Heslo:')
+    password2 = forms.CharField(label='Potvrzení hesla:')
+
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
@@ -175,8 +167,10 @@ def requests_form(request):
         form = RequestsForm()
     return render(request, 'requests.html', {'form': form})
 
+
 def verify_username(request):
     # the user enters his invitation code and it is compared with the code in the model InvitedGuests
+
     if request.method == 'POST':
         form = UsernameForm(request.POST)
         if form.is_valid():
@@ -222,8 +216,6 @@ def registration(request, username):
             user.save()
             # at the same time the user_profile model is created
             # user_profile saved information about select menu from each user
-            user_profile = UserProfile.objects.create(user=user)
-
             return redirect('login')
 
     else:
@@ -240,7 +232,6 @@ def registration(request, username):
 def set_your_vegechildmenu(request):
     # condition that the user is under 18 years of age and requests a vegetarian meal
     user_profile = get_object_or_404(UserProfile, user=request.user)
-
     if UserProfile.objects.filter(user=request.user, completed=True).exists():
 
         message = "Své menu jste si již vybral!"
@@ -277,12 +268,10 @@ def set_your_vegechildmenu(request):
             user_profile.completed = True
             user_profile.save()
 
-
         return redirect('success2')
 
     else:
         form_1 = ChooseDrinksTwooChildForm()
-
 
     context = {
         'user_profile': user_profile,
@@ -557,7 +546,10 @@ def home(request):
     else:
         seconds_text = "vteřin"
 
+    text = "To je za :"
+
     context = {
+        'text': text,
         'days': days_left,
         'days_text': days_text,
         'hours': hours,
@@ -588,7 +580,7 @@ def about_wedding(request):
 
 def news(request):
     all_news = New.objects.all().order_by('-created')
-    # získať označené príspevky z sessions
+    # get tagged posts from sessions
     user_likes = request.session.get('user_likes', [])
     if request.method == 'POST':
         new_id = request.POST.get('new_id')
@@ -597,7 +589,7 @@ def news(request):
             new.likes += 1
             new.save()
             user_likes.append(int(new_id))
-            # aktualizovať sessions
+            # update sessions
             request.session['user_likes'] = user_likes
     return render(request, 'news.html', {'all_news': all_news, 'user_likes': user_likes})
 
@@ -659,7 +651,6 @@ class MessagesForm(forms.ModelForm):
         }
 
 
-
 class MessagesView(generic.ListView):
     # overview of all messages
     template_name = 'messages.html'
@@ -716,7 +707,6 @@ def add_to_playlist(request):
         preview_url = request.POST.get('preview_url')
         external_urls = request.POST.get('external_urls')
         image_url = request.POST.get('image_url')
-
 
         # Check if the song already exists in the database
         if Song.objects.filter(name=name, artist=artist, album=album).exists():

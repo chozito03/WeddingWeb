@@ -5,11 +5,11 @@
 {% block content %}
 <!--<meta http-equiv="refresh" content="1">-->
 <div class="home">
-    <div class="immer_home">
+    <div class="inner_home">
         <h2>{{ message }}</h2>
         <img src="{% static 'media/date.png' %}" alt="image_description">
         <div class="countdown">
-            <p>To je za :</p>
+            <p>{{ text }}</p>
             <h2>{{ days }} {{ days_text }}</h2>
             <p>{{ hours }} {{ hours_text }} {{ minutes }} {{ minutes_text }} {{ seconds }} {{ seconds_text }}.</p>
             <h2>{{ message }}</h2>

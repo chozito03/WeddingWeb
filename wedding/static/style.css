@@ -187,7 +187,7 @@ li.dropdown{
 	z-index: 20;
 }
 
-.immer_home {
+.inner_home {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -195,10 +195,10 @@ li.dropdown{
 	padding: 1rem;
 }
 
-.immer_home h1{
+.inner_home h1{
 	margin: 2rem 0;
 }
-.home .immer_home .countdown {
+.home .inner_home .countdown {
 	display: flex;
 	flex-direction: column;
 	margin: 10rem 0 0 0;
@@ -226,7 +226,7 @@ li.dropdown{
 	letter-spacing: 0.07rem;
 }
 
-.immer_container_about_us{
+.inner_container_about_us{
   	background-color: #ffecec;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	margin: 0.8rem auto ;
@@ -280,7 +280,7 @@ li.dropdown{
 	letter-spacing: 0.07rem;
 }
 
-.immer_gifts_detail{
+.inner_gifts_detail{
   	background-color: #ffecec;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	margin: 0.8rem auto ;
@@ -291,7 +291,7 @@ li.dropdown{
 	opacity: 0.85;
 	z-index: 10;
 }
-.immer_gifts_detail img{
+.inner_gifts_detail img{
 	width: 65%;
 	height: 65%;
 	max-width: 67rem;
@@ -302,11 +302,11 @@ li.dropdown{
 	opacity: 0.85;
 }
 
-.immer_gifts_detail h3{
+.inner_gifts_detail h3{
 	margin: 2rem 0 2rem 0;
 }
 
-.immer_gifts_detail p{
+.inner_gifts_detail p{
 	text-align: justify;
 	margin: 10px 20px 20px 20px;
 }
@@ -314,7 +314,7 @@ p.message {
 	text-align: center;
 	font-size: 1.2rem;
 }
-.immer_gifts_detail a{
+.inner_gifts_detail a{
     margin: 15px auto;
     display: flex;
 	text-align: center;
@@ -331,7 +331,7 @@ p.message {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.immer_gifts_detail button{
+.inner_gifts_detail button{
     margin: 15px auto;
     display: flex;
 	text-align: center;
@@ -364,7 +364,7 @@ p.message {
     grid-gap: 1rem;
 	text-align: center;
 }
-.immer_card {
+.inner_card {
 	width: 14rem;
     display: flex;
     flex-direction: column;
@@ -442,7 +442,7 @@ p.message {
     grid-gap: 0.67rem;
 	opacity: 0.85;
 }
-.immer_playlist_card{
+.inner_playlist_card{
 	/*width: 23rem;*/
     display: inline-flex;
 	align-items: center;
@@ -516,7 +516,7 @@ p.message {
 	opacity: 0.85;
 }
 
-.immer_gifts_card{
+.inner_gifts_card{
 	/*width: 23rem;*/
     display: inline-flex;
 	align-items: center;
@@ -638,7 +638,7 @@ p.message {
 	z-index: 10;
 }
 
-.immer_new_message_form{
+.inner_new_message_form{
     display: flex;
 	flex-direction: column;
     align-items: center;
@@ -646,7 +646,7 @@ p.message {
     text-align: center;
 }
 
-.immer_new_message_form label{
+.inner_new_message_form label{
     margin: 0.6rem auto 0.3rem auto;
 }
 .message_form{
@@ -704,7 +704,7 @@ h2.h2_text_message{
 }
 
 a.button_new_message,
-.immer_new_message_form button{
+.inner_new_message_form button{
 	text-align: center;
 	margin: 0rem auto 2rem auto;
 	opacity: 0.85;
@@ -738,7 +738,7 @@ a.button_new_message,
 	z-index: 10;
 }
 
-.immer_news p{
+.inner_news p{
 	margin: 0.2rem 0;
 }
 
@@ -751,7 +751,7 @@ a.button_new_message,
 	text-align: justify;
 
 }
-.immer_news {
+.inner_news {
   	background-color: #ffecec;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	margin: 0.8rem;
@@ -790,7 +790,7 @@ a.button_new_message,
 }
 
 
-.immer_news h2 {
+.inner_news h2 {
 	font-size: 1rem;
 }
 
@@ -822,7 +822,7 @@ a.button_new_message,
 	text-align: center;
 }
 
-.immer_requests_form form p label{
+.inner_requests_form form p label{
 	font-size: 1.2rem;
 	height: 1.4rem;
 }
@@ -848,7 +848,7 @@ a.button_new_message,
 	margin-right: 1rem;
 }
 
-.immer_requests_form form p {
+.inner_requests_form form p {
     display: flex;
     flex-wrap: wrap;
 	justify-content: space-between;
@@ -878,7 +878,7 @@ a.button_new_message,
 	margin: 0 auto;
 }
 
-.immer_foods_menu_form{
+.inner_foods_menu_form{
 	display: flex;
 	justify-content: center;
 }
@@ -893,7 +893,7 @@ a.button_new_message,
 	font-size: 1.2rem;
 	text-align: center;
 }
-.immer_foods_menu_form form label {
+.inner_foods_menu_form form label {
     display: flex;
 	justify-content: flex-start;
 	align-items: center;
@@ -903,7 +903,7 @@ a.button_new_message,
 	height: 1.8rem;
 }
 
-.immer_foods_menu_form form label input{
+.inner_foods_menu_form form label input{
     margin: 1.9rem 0.67rem 1.9rem 0;
 	width: 1rem;
 	height: 1rem;
@@ -947,9 +947,9 @@ a.button_new_message,
 /* submit button */
 .main_container .login_form form button,
 .down_login_text a,
-.immer_requests_form form button,
+.inner_requests_form form button,
 .foods_menu,
-.immer_foods_menu_form form button{
+.inner_foods_menu_form form button{
     margin: 15px auto;
     display: flex;
 	text-align: center;
@@ -970,17 +970,17 @@ a.button_new_message,
 
 
 .main_container .login_form form button:hover{
-	background-color: #ffecec;
+	background-connr: #ffecec;
 	color: #545454;
 }
 
-.immer_requests_form form button:hover,
+.inner_requests_form form button:hover,
 .foods_menu:hover,
-.immer_foods_menu_form form button:hover,
-.immer_gifts_detail a:hover,
-.immer_gifts_detail button:hover,
+.inner_foods_menu_form form button:hover,
+.inner_gifts_detail a:hover,
+.inner_gifts_detail button:hover,
 a.button_new_message:hover,
-.immer_new_message_form button:hover{
+.inner_new_message_form button:hover{
 	background-color: #e2bdc6;
 	color: #545454;
 }
@@ -1144,8 +1144,8 @@ a.button_new_message:hover,
 	}
 
 	.container_about_us img,
-	.immer_container_about_us,
-	.immer_gifts_detail{
+	.inner_container_about_us,
+	.inner_gifts_detail{
     	width: 85%;
 		letter-spacing: 0.02rem;
 	}
@@ -1162,12 +1162,12 @@ a.button_new_message:hover,
 	.search_song{
 	width: 21rem;
 	}
-	.immer_requests_form form p label,
-	.immer_foods_menu_form form label{
+	.inner_requests_form form p label,
+	.inner_foods_menu_form form label{
 		font-size: 0.93rem;
 		height: 1.4rem;
 	}
-	.immer_requests_form form p{
+	.inner_requests_form form p{
 		width: 20rem;
 	}
 
@@ -1186,7 +1186,7 @@ a.button_new_message:hover,
 		width: 85%;
 	}
 
-	.immer_foods_menu_form form label input{
+	.inner_foods_menu_form form label input{
     margin: 1.9rem 0.43rem 1.9rem 0;
 	width: 0.8rem;
 	height: 0.8rem;

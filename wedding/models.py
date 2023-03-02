@@ -1,15 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, ManyToManyField, DateTimeField, \
-    BooleanField, PositiveSmallIntegerField, TextField, DateField, SET_NULL, OneToOneField
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
-from django.contrib.auth import get_user_model
-
-
-from django.utils import timezone
-from datetime import datetime
-
+from django.db.models import Model, CharField, ForeignKey, CASCADE, IntegerField, DateTimeField, \
+    BooleanField, PositiveSmallIntegerField, TextField, DateField, OneToOneField
 
 
 class City(Model):
@@ -78,6 +70,7 @@ class Requests(Model):
     def __str__(self):
         return self.username.username
 
+
 class Messages(Model):
     author = CharField(max_length=200, null=True)
     message = TextField(null=True)
@@ -85,9 +78,9 @@ class Messages(Model):
 
     class Meta:
         ordering = ['-created']
+
     def __str__(self):
         return f'{self.author} {self.created.strftime("%Y-%m-%d %H:%M:%S")}'
-
 
 
 class Gifts(Model):
@@ -100,6 +93,7 @@ class Gifts(Model):
 
     class Meta:
         ordering = ['name']
+
     def __str__(self):
         return f'{self.name}'
 
@@ -114,14 +108,6 @@ class New(Model):
     def __str__(self):
         return f'{self.name}'
 
-"""
-class FilledSurvey(Model):
-    user = ForeignKey(User, on_delete=CASCADE)
-    survey = ForeignKey('Requests', on_delete=CASCADE)
-
-    class Meta:
-        unique_together = ('user', 'survey')
-"""
 
 class MealCourse(Model):
     name = CharField(max_length=32, null=False, unique=True)
@@ -129,12 +115,13 @@ class MealCourse(Model):
     def __str__(self):
         return f'{self.name}'
 
+
 class DrinksCourse(Model):
     name = CharField(max_length=32, null=False, unique=True)
 
-
     def __str__(self):
         return f'{self.name}'
+
 
 class Meal(Model):
     name = CharField(max_length=200)
@@ -145,6 +132,7 @@ class Meal(Model):
     def __str__(self):
         return f'{self.name}'
 
+
 class Drinks(Model):
     name = CharField(max_length=200)
     volume = CharField(max_length=200, null=True, blank=True)
@@ -153,6 +141,7 @@ class Drinks(Model):
 
     def __str__(self):
         return f'{self.name}'
+
 
 class UserProfile(Model):
     user = OneToOneField(User, on_delete=CASCADE)
@@ -165,4 +154,3 @@ class UserProfile(Model):
 
     def __str__(self):
         return f'{self.user}'
-

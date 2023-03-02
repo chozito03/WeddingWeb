@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+from data.asset import me_asset
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -132,8 +133,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
-
-from data.asset import me_asset
 SPOTIPY_CLIENT_ID = me_asset.SPOTIPY_CLIENT_ID
 SPOTIPY_CLIENT_SECRET = me_asset.SPOTIPY_CLIENT_SECRET
 SPOTIPY_REDIRECT_URI = me_asset.SPOTIPY_REDIRECT_URI

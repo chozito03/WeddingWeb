@@ -8,7 +8,7 @@
         <div class="gifts_card">
             {% for gift in object_list %}
                 {% if gift.selected == False %}
-                <div class="immer_gifts_card">
+                <div class="inner_gifts_card">
                     <img src="{{ gift.image_url }}" alt="image_description"/>
                     <div class="text">
                         <h2>{{ gift.name|truncatechars:30 }}</h2>

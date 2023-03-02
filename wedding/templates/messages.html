@@ -4,14 +4,14 @@
 {% load static %}
 {% block title %}Svatební vzkazy{% endblock %}
 {% block content %}
+
     <div class="h1_text_news"><h1>Vzkazy novomanželům</h1></div>
 
     <div class="news">
         <h2 class="h2_text_message">Návštěvníci webu mohou zanechat novomanželům vzkazy a gratulace</h2>
         <a class="button_new_message" href="{% url 'add_message' %}">Zanechte svůj vzkaz</a>
-
         {% for message in object_list %}
-            <div class="immer_news">
+            <div class="inner_news">
                 <h2 class="new_date">{{ message.author }}</h2>
                 <p class="new_description">{{ message.message }}</p>
 
