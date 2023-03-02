@@ -2,24 +2,25 @@
 
 {% block title %}Gifts{% endblock %}
 {% block content %}
-<div class="main_container">
 
-<div class="h1_text"><h1>Seznam svatebních darů</h1></div>
-<div class="playlist">
-<div class="playlist_card">
-    {% for gift in object_list %}
-
-    {% if gift.selected == False %}
-        <div class="immer_playlist_card">
-     <div class="text"><a href="{% url 'gift-detail' gift.id %}">{{ gift.name }}</a></div>
-        <div><img src="{{ gift.image_url }}" alt="image_description"/></div>
+    <div class="h1_text_gifts"><h1>Seznam svatebních darů</h1></div>
+    <div class="gifts">
+        <div class="gifts_card">
+            {% for gift in object_list %}
+                {% if gift.selected == False %}
+                <div class="immer_gifts_card">
+                    <img src="{{ gift.image_url }}" alt="image_description"/>
+                    <div class="text">
+                        <h2>{{ gift.name|truncatechars:30 }}</h2>
+                    </div>
+                    <a href="{% url 'gift-detail' gift.id %}">Detail</a>
+                </div>
+                {% endif %}
+                {% empty %}
+                <p>Všechny dárky již byly vybrány</p>
+            {% endfor %}
         </div>
-     {% endif %}
-
-    {% endfor %}
-</div>
-</div>
-<h2>{{ message }}</h2>
-</div>
+        <h2>{{ message }}</h2>
+    </div>
 
 {% endblock %}

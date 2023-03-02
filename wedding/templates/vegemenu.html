@@ -3,26 +3,24 @@
 {% load static %}
 
 {% block content %}
-    <div class="main_container">
-    <h2>Zvolte si své svatební menu</h2>
-
-        <div class="main_container">
-            <h2>Váš předkrm</h2>
-            <p>{{ vege_meal1 }}</p>
-            <h2>Vaše polévka</h2>
-            <p>{{ vege_meal2 }}</p>
-            <h2>Váš hlavní chod</h2>
-            <p>{{ vege_meal3 }}</p>
-
+    <div class="foods_menu_form">
+        <h2>Zvolte si své svatební menu</h2>
+        <h3>Váš předkrm</h3>
+        <p>{{ vege_meal1 }}</p>
+        <h3>Vaše polévka</h3>
+        <p>{{ vege_meal2 }}</p>
+        <h3>Váš hlavní chod</h3>
+        <p>{{ vege_meal3 }}</p>
+        <div class="immer_foods_menu_form">
             <form method="POST">
             {% csrf_token %}
-                <h2>Zvolte si přípitek</h2>
+                <h3>Zvolte si přípitek</h3>
             {{ form_1.as_p }}
             <input type="hidden" name="form_number" value="1">
-                 <h2>Zvolte si pití k hlavnímu chodu</h2>
+                 <h3>Zvolte si pití k hlavnímu chodu</h3>
             {{ form_2.as_p }}
             <input type="hidden" name="form_number" value="1">
-            <button type="submit">Submit</button>
+            <button type="submit">Odeslat</button>
             </form>
         </div>
     </div>

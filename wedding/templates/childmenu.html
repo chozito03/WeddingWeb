@@ -3,27 +3,26 @@
 {% load static %}
 
 {% block content %}
-    <div class="main_container">
-    <h2>Zvolte si své svatební menu</h2>
-
-        <div class="main_container">
-            <h2>Tvůj přípitek</h2>
-            <p>{{ child_drink1 }}</p>
-         <form method="POST">
-            {% csrf_token %}
-            <h2>Zvol si předkrm</h2>
-            {{ form_1.as_p }}
-            <input type="hidden" name="form_number" value="1">
-            <h2>Zvol si polévku</h2>
-            {{ form_2.as_p }}
-            <input type="hidden" name="form_number" value="2">
-            <h2>Zvol si hlavní chod</h2>
-            {{ form_3.as_p }}
-            <input type="hidden" name="form_number" value="3">
-            <h2>Zvol si pití k hlavnímu chodu</h2>
-            {{ form_4.as_p }}
-            <input type="hidden" name="form_number" value="4">
-            <button type="submit">Submit</button>
+    <div class="foods_menu_form">
+        <h2>Zvolte si své svatební menu</h2>
+        <h3>Tvůj přípitek</h3>
+        <p>{{ child_drink1 }}</p>
+        <div class="immer_foods_menu_form">
+            <form method="POST">
+                {% csrf_token %}
+                <h3>Zvol si předkrm</h3>
+                {{ form_1.as_p }}
+                <input type="hidden" name="form_number" value="1">
+                <h3>Zvol si polévku</h3>
+                {{ form_2.as_p }}
+                <input type="hidden" name="form_number" value="2">
+                <h3>Zvol si hlavní chod</h3>
+                {{ form_3.as_p }}
+                <input type="hidden" name="form_number" value="3">
+                <h3>Zvol si pití k hlavnímu chodu</h3>
+                {{ form_4.as_p }}
+                <input type="hidden" name="form_number" value="4">
+                <button type="submit">Odeslat</button>
             </form>
         </div>
     </div>

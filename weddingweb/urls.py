@@ -45,7 +45,6 @@ urlpatterns = [
     path('menu/vegemenu/', set_your_vegemenu, name='set_your_vegemenu'),
     path('menu/childmenu/', set_your_childmenu, name='set_your_childmenu'),
     path('menu/vegechildmenu/', set_your_vegechildmenu, name='set_your_vegechildmenu'),
-    # path('add_message/', add_message, name='add_message'),
     path('add_message/', MessageCreateView.as_view(), name='add_message'),
     path('messages/', MessagesView.as_view(), name='messages'),
 ]

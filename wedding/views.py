@@ -625,9 +625,11 @@ class MessagesForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
+
     class Meta:
         model = Messages
         fields = '__all__'
+
 
 class MessagesView(generic.ListView):
     # overview of all messages
@@ -638,8 +640,9 @@ class MessageCreateView(generic.CreateView):
     # entering a message by a visitor
   template_name = 'add_message.html'
   form_class = MessagesForm
-  success_url = reverse_lazy('home')
+  success_url = reverse_lazy('messages')
   permission_required = 'wedding.add_message'
+
 
 def search_song(request):
     if request.method == 'POST':
@@ -662,11 +665,11 @@ def search_song(request):
         elif track:
             results = sp.search(q='track:' + track, limit=50, type='track')
         else:
-            message = "Prosím, zadajte aspoň jedno kritérium."
+            message = "Prosím, zadejte alespoň jedno kritérium."
             return render(request, 'search.html', {'message': message})
 
         if results['tracks']['total'] == 0:
-            message = "Zadana skladba sa nenasla na Spotify."
+            message = "Zadaná skladba nebyla nalezena na Spotify."
             return render(request, 'search.html', {'message': message})
         else:
             return render(request, 'results.html', {'results': results})
@@ -687,13 +690,13 @@ def add_to_playlist(request):
 
         # Check if the song already exists in the database
         if Song.objects.filter(name=name, artist=artist, album=album).exists():
-            message = f"Hupps, skladba {name} od {artist} už je v svadobnom playliste!"
+            message = f"Hupps, skladba {name} od {artist} už je ve svatebním playlistu!"
             return render(request, 'search.html', {'message': message})
 
         # Check whether the user has already added the maximum number of songs
         user = request.user
         if user.user_song.count() >= 4:
-            message = "Nemôžete pridať viac ako 4 piesní."
+            message = "Nemůžete přidat více než 4 písničky."
             return render(request, 'search.html', {'message': message})
 
         # Creating a Song instance for a new track
@@ -710,7 +713,7 @@ def add_to_playlist(request):
         )
         new_song.save()
 
-        message = f"Vyborne! Skladba {name} od {artist} sa pridala do svadobneho playlistu."
+        message = f"Vyborně!! Skladba {name} od {artist} se přidala do svatebního playlistu."
         return render(request, 'search.html', {'message': message})
     return render(request, 'search.html')
 
@@ -719,53 +722,5 @@ def add_to_playlist(request):
 def song_list(request):
     songs = Song.objects.all().order_by('-created')
     return render(request, 'playlist.html', {'songs': songs})
-
-
-
-
-# def add_song_to_spotify(request):
-#     # Get the song ID from the submitted form
-#     song_id = '6lknMmJZALXxx7emwwZWLX'
-#     client_id = SPOTIPY_CLIENT_ID
-#     client_secret = SPOTIPY_CLIENT_SECRET
-#     # Get the authenticated user's Spotify credentials
-#     sp_oauth = SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri='http://localhost:8000/spotify_callback')
-#     token_info = sp_oauth.get_cached_token()
-#     if not token_info:
-#         auth_url = sp_oauth.get_authorize_url()
-#         return redirect(auth_url)
-#     sp = spotipy.Spotify(auth=token_info['BQDhWFJGCBPFeuTQZ2kgXiitQ8pjK7e3-rtZL15cA04916XuhycfIsb1hm_1IuqxknZZfDiZ8eBRzKQhNLVQn0mJd4A_oB5cJqPqCdArfik_6gsHWVS4MRojN7zNJzDa0Z_67peq5sG2e-q8DRDTAEIu6enLPWagjFlNEVzxCDs1JIVX4LO7RDYDox3IUsckiGOx5OAGzl2FBQcqQHNpJE02gM0_mBPfZXF3AJRuFCG7otZa7tCR7CiNC9eLCKBBEQ'])
-#     playlist_id = '65Gg8X7NVU3g95Az5aXHgo'
-#
-#     # Add the song to the user's playlist
-#     sp.user_playlist_add_tracks(user='21lspgptue3pev6hbwr7fq3ti', playlist_id=playlist_id, tracks=[song_id])
-#
-#     # Render a success message
-#     message = f"The song with ID {song_id} was added to the playlist."
-#     return render(request, 'search.html', {'message': message})
-
-
-
-#
-# def add_song_to_spotify(request):
-#     song_id = '6lknMmJZALXxx7emwwZWLX'
-#     client_id = SPOTIPY_CLIENT_ID
-#     client_secret = SPOTIPY_CLIENT_SECRET
-#     redirect_uri = SPOTIPY_REDIRECT_URI
-#     username = '21lspgptue3pev6hbwr7fq3ti'
-#     scope = []
-#
-#     token = util.prompt_for_user_token(username, scope, client_id=client_id, client_secret=client_secret,
-#                                        redirect_uri="https://open.spotify.com/playlist/65Gg8X7NVU3g95Az5aXHgo")
-#
-#     if token:
-#         sp = spotipy.Spotify(auth=token)
-#         playlist_id = '65Gg8X7NVU3g95Az5aXHgo'
-#         # Add the song to the user's playlist
-#         sp.playlist_add_items(playlist_id, '6lknMmJZALXxx7emwwZWLX')
-#
-#     # Render a success message
-#     message = f"The song with ID {song_id} was added to the playlist."
-#     return render(request, 'search.html', {'message': message})
 
 

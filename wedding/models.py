@@ -84,9 +84,9 @@ class Messages(Model):
     created = DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['created']
+        ordering = ['-created']
     def __str__(self):
-        return f'{self.author}'
+        return f'{self.author} {self.created.strftime("%Y-%m-%d %H:%M:%S")}'
 
 
 
