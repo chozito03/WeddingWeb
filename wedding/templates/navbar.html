@@ -21,14 +21,14 @@
                                     <a href="{% url 'set_your_menu' %}">Svatební menu</a>
                                     <a href="{% url 'gifts' %}">Svatební dárky</a>
                                     <a href="{% url 'playlist' %}">Playlist</a>
-                                    <a href="{% url 'logout' %}">Odhlaseni</a>
+                                    <a href="{% url 'logout' %}">Odhlášení</a>
                                 </div>
                             </li>
                         {% else %}
                             <li class="dropdown"><a href="">Zóna hostů</a>
                                 <div class="dropdown_content">
-                                    <a href="{% url 'verify_username' %}">Overenie hosta</a>
-                                    <a href="{% url 'login' %}">Prihlaseni</a>
+                                    <a href="{% url 'verify_username' %}">Ověření hosta</a>
+                                    <a href="{% url 'login' %}">Přihlášení</a>
                                 </div>
                             </li>
                         {% endif %}

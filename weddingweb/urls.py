@@ -20,7 +20,8 @@ from django.contrib.auth.decorators import login_required
 
 from wedding.views import home, about_us, news, invitation, about_wedding, verify_username, registration, search_song, \
     add_to_playlist, requests_form, success_view, GiftsView, GiftDetailView, gift_select, song_list, set_your_menu, \
-    set_your_vegemenu, set_your_childmenu, set_your_vegechildmenu, MessageCreateView, MessagesView
+    set_your_vegemenu, set_your_childmenu, set_your_vegechildmenu, MessageCreateView, MessagesView, success2_view, \
+    success3_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -38,14 +39,15 @@ urlpatterns = [
     path('registration/<username>/', registration, name='registration'),
     path('requests/', login_required(requests_form), name='requests_form'),
     path('requests/success/', success_view, name='success'),
+    path('menu/success2/', success2_view, name='success2'),
+    path('gifts/success3/', success3_view, name='success3'),
     path('gifts/', login_required(GiftsView.as_view()), name='gifts'),
     path('gifts/<pk>/', login_required(GiftDetailView.as_view()), name='gift-detail'),
     path('gifts/<int:pk>/select/', gift_select, name='gift-select'),
-    path('menu/', set_your_menu, name='set_your_menu'),
+    path('menu/', login_required(set_your_menu), name='set_your_menu'),
     path('menu/vegemenu/', set_your_vegemenu, name='set_your_vegemenu'),
     path('menu/childmenu/', set_your_childmenu, name='set_your_childmenu'),
     path('menu/vegechildmenu/', set_your_vegechildmenu, name='set_your_vegechildmenu'),
-    # path('add_message/', add_message, name='add_message'),
     path('add_message/', MessageCreateView.as_view(), name='add_message'),
     path('messages/', MessagesView.as_view(), name='messages'),
 ]

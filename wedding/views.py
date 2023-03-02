@@ -48,7 +48,8 @@ class ChooseMealOneForm(forms.Form):
     meal1 = forms.ModelChoiceField(
         queryset=Meal.objects.filter(food_type__name='předkrm'),
         empty_label=None,
-        widget=forms.RadioSelect
+        widget=forms.RadioSelect,
+        label='',
     )
 
     def __init__(self, *args, **kwargs):
@@ -60,7 +61,8 @@ class ChooseMealTwoForm(forms.Form):
     meal2 = forms.ModelChoiceField(
         queryset=Meal.objects.filter(food_type__name='polévka'),
         empty_label=None,
-        widget=forms.RadioSelect
+        widget=forms.RadioSelect,
+        label='',
     )
 
     def __init__(self, *args, **kwargs):
@@ -72,7 +74,8 @@ class ChooseMealThreeForm(forms.Form):
     meal3 = forms.ModelChoiceField(
         queryset=Meal.objects.filter(food_type__name='hlavní chod'),
         empty_label=None,
-        widget=forms.RadioSelect
+        widget=forms.RadioSelect,
+        label='',
     )
 
     def __init__(self, *args, **kwargs):
@@ -84,7 +87,8 @@ class ChooseDrinksOneForm(forms.Form):
     drink1 = forms.ModelChoiceField(
         queryset=Drinks.objects.filter(drink_type__name='přípitek'),
         empty_label=None,
-        widget=forms.RadioSelect
+        widget=forms.RadioSelect,
+        label='',
     )
 
     def __init__(self, *args, **kwargs):
@@ -96,7 +100,8 @@ class ChooseDrinksTwooForm(forms.Form):
     drink2 = forms.ModelChoiceField(
         queryset=Drinks.objects.filter(drink_type__name='hlavní chod'),
         empty_label=None,
-        widget=forms.RadioSelect
+        widget=forms.RadioSelect,
+        label='',
     )
 
     def __init__(self, *args, **kwargs):
@@ -108,7 +113,8 @@ class ChooseDrinksTwooChildForm(forms.Form):
     drink2 = forms.ModelChoiceField(
         queryset=Drinks.objects.filter(drink_type__name='hlavní chod', only_for_adult=False),
         empty_label=None,
-        widget=forms.RadioSelect
+        widget=forms.RadioSelect,
+        label='',
     )
 
     def __init__(self, *args, **kwargs):
@@ -139,6 +145,14 @@ def set_request_user(sender, instance, **kwargs):
 
 def success_view(request):
     return render(request, 'success.html')
+
+
+def success2_view(request):
+    return render(request, 'success2.html')
+
+
+def success3_view(request):
+    return render(request, 'success3.html')
 
 
 @login_required
@@ -207,10 +221,11 @@ def registration(request, username):
             user.last_name = invited_guest.last_name
             user.save()
             # at the same time the user_profile model is created
+            # user_profile saved information about select menu from each user
             user_profile = UserProfile.objects.create(user=user)
 
-            message = "Váš účet byl vytvořen. Můžete se přihlásit!"
-            return render(request, 'home.html', {'message': message})
+            return redirect('login')
+
     else:
         form = UserRegistrationForm(initial={
             'username': username,
@@ -221,13 +236,14 @@ def registration(request, username):
 
     return render(request, 'registration.html', {'form': form, 'invited_guest': invited_guest})
 
+
 def set_your_vegechildmenu(request):
     # condition that the user is under 18 years of age and requests a vegetarian meal
     user_profile = get_object_or_404(UserProfile, user=request.user)
 
     if UserProfile.objects.filter(user=request.user, completed=True).exists():
 
-        message = "Dotazník jste již vyplnil!"
+        message = "Své menu jste si již vybral!"
         return render(request, 'home.html', {'message': message})
 
     vege_meal1 = Meal.objects.filter(food_type__name='předkrm', for_vegetarian=True).first()
@@ -262,7 +278,7 @@ def set_your_vegechildmenu(request):
             user_profile.save()
 
 
-        return redirect('success')
+        return redirect('success2')
 
     else:
         form_1 = ChooseDrinksTwooChildForm()
@@ -279,13 +295,14 @@ def set_your_vegechildmenu(request):
 
     return render(request, 'vegechildmenu.html', context)
 
+
 def set_your_vegemenu(request):
     #  condition that the user requests a vegetarian meal
     user_profile = get_object_or_404(UserProfile, user=request.user)
 
     if UserProfile.objects.filter(user=request.user, completed=True).exists():
 
-        message = "Dotazník jste již vyplnil!"
+        message = "Své menu jste si již vybral!"
         return render(request, 'home.html', {'message': message})
 
     vege_meal1 = Meal.objects.filter(food_type__name='předkrm', for_vegetarian=True).first()
@@ -321,7 +338,7 @@ def set_your_vegemenu(request):
             user_profile.completed = True
             user_profile.save()
 
-        return redirect('success')
+        return redirect('success2')
 
     else:
         form_1 = ChooseDrinksOneForm()
@@ -338,12 +355,13 @@ def set_your_vegemenu(request):
 
     return render(request, 'vegemenu.html', context)
 
+
 def set_your_childmenu(request):
     # condition that the user is under 18 years
     user_profile = get_object_or_404(UserProfile, user=request.user)
 
     if UserProfile.objects.filter(user=request.user, completed=True).exists():
-        message = "Dotazník jste již vyplnil!"
+        message = "Své menu jste si již vybral!"
         return render(request, 'home.html', {'message': message})
 
     child_drink1 = Drinks.objects.filter(drink_type__name='přípitek', only_for_adult=False).first()
@@ -383,7 +401,7 @@ def set_your_childmenu(request):
             user_profile.completed = True
             user_profile.save()
 
-        return redirect('success')
+        return redirect('success2')
 
     else:
         form_1 = ChooseMealOneForm()
@@ -403,6 +421,7 @@ def set_your_childmenu(request):
     return render(request, 'childmenu.html', context)
 
 
+@login_required
 def set_your_menu(request):
     user_profile = get_object_or_404(UserProfile, user=request.user)
     # Check if user has filled out the basic wedding questionnaire
@@ -412,7 +431,7 @@ def set_your_menu(request):
 
     # check if it hasn't filled the wedding menu before
     if UserProfile.objects.filter(user=request.user, completed=True).exists():
-        message = "Dotazník jste již vyplnil!"
+        message = "Své menu jste si již vybral!"
         return render(request, 'home.html', {'message': message})
     # conditions were taken from the basic wedding questionnaire
     user_vegetarian_and_child = Requests.objects.filter(username=request.user, vegetarian_food=True, age__lt=18).exists()
@@ -475,7 +494,7 @@ def set_your_menu(request):
                 user_profile.completed = True
                 user_profile.save()
 
-            return redirect('success')
+            return redirect('success2')
 
         else:
             form_1 = ChooseMealOneForm()
@@ -496,6 +515,7 @@ def set_your_menu(request):
             }
 
         return render(request, 'menu.html', context)
+
 
 def home(request):
     # getting the user's time zone
@@ -581,8 +601,10 @@ def news(request):
             request.session['user_likes'] = user_likes
     return render(request, 'news.html', {'all_news': all_news, 'user_likes': user_likes})
 
+
 def invitation(request):
     return render(request, 'invitation.html')
+
 
 class GiftsForm(forms.ModelForm):
 
@@ -594,14 +616,17 @@ class GiftsForm(forms.ModelForm):
         model = Gifts
         fields = '__all__'
 
+
 class GiftsView(generic.ListView):
     template_name = 'gifts.html'
     model = Gifts
+
 
 class GiftDetailView(generic.DetailView):
     model = Gifts
     template_name = 'gift_detail.html'  # specify the name of the template to use
     context_object_name = 'gift'  # specify the name of the variable to use in the template
+
 
 @require_POST
 @login_required
@@ -616,23 +641,29 @@ def gift_select(request, pk):
     gift.sorted_by = request.user
     gift.save()
 
-    # Redirect to gift detail
-    return redirect('gift-detail', pk=gift.pk)
+    return redirect('success3')
+
 
 class MessagesForm(forms.ModelForm):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
+
     class Meta:
         model = Messages
         fields = '__all__'
+        labels = {
+            'author': 'Vaše jméno:',
+            'message': 'Váš vzkaz:',
+        }
+
 
 class MessagesView(generic.ListView):
     # overview of all messages
     template_name = 'messages.html'
     model = Messages
+
 
 class MessageCreateView(generic.CreateView):
     # entering a message by a visitor
@@ -640,6 +671,7 @@ class MessageCreateView(generic.CreateView):
   form_class = MessagesForm
   success_url = reverse_lazy('home')
   permission_required = 'wedding.add_message'
+
 
 def search_song(request):
     if request.method == 'POST':
