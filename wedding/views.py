@@ -28,8 +28,10 @@ class UserRegistrationForm(UserCreationForm):
     username = forms.CharField(label='Overovaci kod:')
     first_name = forms.CharField(label='Jméno:')
     last_name = forms.CharField(label='Příjmení')
-    password1 = forms.CharField(label='Heslo:')
-    password2 = forms.CharField(label='Potvrzení hesla:')
+    # password1 = forms.CharField(label='Heslo:')
+    # password2 = forms.CharField(label='Potvrzení hesla:')
+    password1 = forms.CharField(label='Heslo:', widget=forms.PasswordInput(render_value=False))
+    password2 = forms.CharField(label='Potvrzení hesla:', widget=forms.PasswordInput(render_value=False))
 
     class Meta:
         model = User
@@ -215,6 +217,7 @@ def registration(request, username):
             user.last_name = invited_guest.last_name
             user.save()
             # at the same time the user_profile model is created
+            user_profile = UserProfile.objects.create(user=user)
             # user_profile saved information about select menu from each user
             return redirect('login')
 
