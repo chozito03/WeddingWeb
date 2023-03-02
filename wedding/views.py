@@ -21,7 +21,7 @@ from weddingweb.settings import SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET
 
 
 class UsernameForm(forms.Form):
-    username = forms.CharField(label='Overovaci kod:')
+    username = forms.CharField(label='Ověřovací kód:')
 
 
 class UserRegistrationForm(UserCreationForm):

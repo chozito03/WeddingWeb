@@ -933,10 +933,10 @@ a.button_new_message,
 }
 
 /* input field */
-.main_container .login_form form p input{
-	background: WHITE;
+.main_container .login_form form p input,
+.main_container .login_form form .main_form input{
 	height: 36px;
-    width: 100%;
+    width: 120px;
     padding-left: 15px;
 	font-size: 0.96rem;
 	letter-spacing: 1px;
