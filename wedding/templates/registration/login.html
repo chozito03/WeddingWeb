@@ -9,9 +9,9 @@
         <form method="post">
             {% csrf_token %}
             <div class="main_form">
-             <label for="{{ form.username.id_for_label }}">Uživatelské jméno:</label>
+                <label for="{{ form.username.id_for_label }}">Ověřovací kód:</label>
                                 {{ form.username }}
-            <label for="{{ form.password.id_for_label }}">Heslo:</label>
+                <label for="{{ form.password.id_for_label }}">Heslo:</label>
                                 {{ form.password }}
             </div>
             <button type="submit">Přihlášení</button>

@@ -919,7 +919,8 @@ a.button_new_message,
 
 
 /* form field */
-.main_form p {
+.main_form p,
+.main_form {
     display: flex;
     flex-wrap: wrap;
     margin: 0 auto;
@@ -927,16 +928,17 @@ a.button_new_message,
 }
 
 /* description 'username and password' */
-.main_form p label {
+.main_form p label,
+.login_form form .main_form label{
     padding: 5px 0 5px 5px;
     font-size: 0.8rem;
 }
 
 /* input field */
 .main_container .login_form form p input,
-.main_container .login_form form .main_form input{
+.login_form form .main_form input {
 	height: 36px;
-    width: 120px;
+    width: 100%;
     padding-left: 15px;
 	font-size: 0.96rem;
 	letter-spacing: 1px;
