@@ -7,7 +7,6 @@
 <div class="results_search_song">
     <div class="card">
         {% for result in results.tracks.items %}
-
         <div class="immer_card">
             <img src="{{ result.album.images.0.url }}" alt="cover song image">
             <h1>{{ result.artists.0.name|truncatechars:18 }} </h1>

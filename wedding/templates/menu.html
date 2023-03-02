@@ -3,15 +3,12 @@
 {% load static %}
 {% block title %}Menu{% endblock %}
 {% block content %}
-
     <div class="foods_menu_form">
-    <h2>Zvolte si své svatební menu</h2>
+        <h2>Zvolte si své svatební menu</h2>
         {% if user_vegetarian %}
             <div class="immer_foods_menu_form">
                 <p>{{ veget_meal1 }}</p>
             </div>
-
-
         {% else %}
             <div class="immer_foods_menu_form">
                 <form method="POST">

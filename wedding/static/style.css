@@ -127,7 +127,20 @@ body{
 	background: #e2bdc6;
 }
 
+.navbar .menu ul li:last-child:hover
+{
+	background: #232323;
+}
 
+li.dropdown{
+	background-color: #676767;
+	width: auto;
+	height: 43px;
+	text-align: center;
+	border-radius: 25px;
+	transition: all 0.4s ease;
+
+}
 
 .dropdown {
   	position: relative;
@@ -252,6 +265,89 @@ body{
 	color: #bd0e0e;
 	transition: all 1.2s ease;
 }
+/*gifts detail*/
+
+.gifts_detail{
+  	/*display: grid;*/
+  	/*grid-template-columns: repeat(2, 3fr);*/
+  	/*grid-gap: 1em;*/
+	display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    text-align: center;
+	font-size: 0.9rem;
+	letter-spacing: 0.07rem;
+}
+
+.immer_gifts_detail{
+  	background-color: #ffecec;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	margin: 0.8rem auto ;
+	padding: 0.8rem 0.8rem 2rem 0.8rem;
+	border-radius: 1rem;
+	width: 75%;
+	max-width: 46rem;
+	opacity: 0.85;
+	z-index: 10;
+}
+.immer_gifts_detail img{
+	width: 65%;
+	height: 65%;
+	max-width: 67rem;
+	margin: 10px auto;
+	text-align: justify;
+	border-radius: 1.68rem;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	opacity: 0.85;
+}
+
+.immer_gifts_detail h3{
+	margin: 2rem 0 2rem 0;
+}
+
+.immer_gifts_detail p{
+	text-align: justify;
+	margin: 10px 20px 20px 20px;
+}
+p.message {
+	text-align: center;
+	font-size: 1.2rem;
+}
+.immer_gifts_detail a{
+    margin: 15px auto;
+    display: flex;
+	text-align: center;
+	font-size: 0.77rem;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 80px;
+    border: None;
+    border-radius: 25px;
+    transition: all 0.6s ease;
+	background-color: #545454;
+	color: #ffffff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.immer_gifts_detail button{
+    margin: 15px auto;
+    display: flex;
+	text-align: center;
+	font-size: 0.77rem;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 120px;
+    border: None;
+    border-radius: 25px;
+    transition: all 0.6s ease;
+	background-color: #545454;
+	color: #ffffff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
 
 /*results search song page*/
 
@@ -286,7 +382,7 @@ body{
 }
 
 .results_search_song h1{
-	font-size: 1.38rem;
+	font-size: 1.34rem;
 	text-align: center;
 	margin-top: 0.68rem;
 
@@ -334,9 +430,10 @@ body{
 
 .playlist {
 	display: flex;
-	margin: 0px auto;
-
+	margin: 0 auto;
 }
+
+
 .playlist_card {
 	margin: 0px auto;
     display: grid;
@@ -344,7 +441,6 @@ body{
     grid-auto-rows: 5rem;
     grid-gap: 0.67rem;
 	opacity: 0.85;
-
 }
 .immer_playlist_card{
 	/*width: 23rem;*/
@@ -396,6 +492,78 @@ body{
 }
 
 
+/*gifts*/
+
+.h1_text_gifts h1{
+	text-align: center;
+	margin: 30% auto 4rem auto;
+	opacity: 0.75;
+}
+
+.gifts {
+	display: flex;
+	margin: 0 auto;
+	justify-content: center;
+}
+
+
+.gifts_card {
+	margin: 0 23px;
+    display: grid;
+    grid-template-columns: repeat(1, minmax(19rem,1fr));
+    grid-auto-rows: 5rem;
+    grid-gap: 0.67rem;
+	opacity: 0.85;
+}
+
+.immer_gifts_card{
+	/*width: 23rem;*/
+    display: inline-flex;
+	align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+  	background-color: #ffecec;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  	padding: 0.62rem;
+	border-radius: 25px;
+}
+
+.gifts_card img{
+	border-radius: 50%;
+	width: 4rem;
+	height: 4rem;
+}
+
+.gifts_card h1{
+	font-size: 1rem;
+	text-align: left;
+
+}
+.gifts_card h2{
+	font-size: 0.8rem;
+	text-align: left;
+}
+
+.gifts_card a {
+	background-color: #545454;
+	display: flex;
+	justify-content: center;
+	justify-items: center;
+	height: 2.7rem;
+	width: 2.7rem;
+	text-align: center;
+	color: #ffffff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	font-size: 0.78rem;
+	transition: all 0.3s ease;
+	border-radius: 50%;
+	border: none;
+	line-height: 2.7rem;
+}
+
+.gifts_card a:hover{
+	background-color: #e2bdc6;
+}
 
 /*  search form  */
 
@@ -460,8 +628,108 @@ body{
 	margin: 0rem 1rem 1rem 1rem;
 }
 
+/*new message form*/
+.new_message_form{
+    display: flex;
+    align-items: center;
+    margin: 30% auto;
+    text-align: center;
+	opacity: 0.85;
+	z-index: 10;
+}
+
+.immer_new_message_form{
+    display: flex;
+	flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.immer_new_message_form label{
+    margin: 0.6rem auto 0.3rem auto;
+}
+.message_form{
+    display: flex;
+	flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.message_form input{
+	background: WHITE;
+	height: 36px;
+    width: 9rem;
+    padding-left: 15px;
+	font-size: 0.96rem;
+	letter-spacing: 1px;
+    border: None;
+    border-radius: 25px;
+}
+
+.message_form textarea{
+	background: WHITE;
+	height: 9rem;
+    width: 22rem;
+    padding: 8px 5px 5px 11px;
+	font-size: 0.96rem;
+	letter-spacing: 1px;
+    border: None;
+    border-radius: 15px;
+	margin-bottom: 2rem;
+}
+/*invitation*/
+
+.invitation{
+	display: flex;
+}
+
+.invitation img{
+	margin: 30% auto;
+	width: 75%;
+	border-radius: 3px;
+	opacity: 0.85;
+	z-index: 10;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/*message*/
+h2.h2_text_message{
+	text-align: center;
+	margin: 2rem auto 2rem auto;
+	opacity: 0.85;
+	z-index: 10;
+	font-size: 1rem;
+}
+
+a.button_new_message,
+.immer_new_message_form button{
+	text-align: center;
+	margin: 0rem auto 2rem auto;
+	opacity: 0.85;
+	z-index: 10;
+    display: flex;
+	font-size: 0.77rem;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 130px;
+    border: None;
+    border-radius: 25px;
+    transition: all 0.6s ease;
+	background-color: #545454;
+	color: #ffffff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+
+
+
 
 /*News*/
+
+
 
 .h1_text_news h1{
 	text-align: center;
@@ -470,10 +738,14 @@ body{
 	z-index: 10;
 }
 
+.immer_news p{
+	margin: 0.2rem 0;
+}
+
 .news {
 	display: flex;
 	flex-direction: column;
-	margin: 0 auto;
+	margin: 0 auto 4rem auto;
 	width: 75%;
 	max-width: 60rem;
 	text-align: justify;
@@ -602,6 +874,10 @@ body{
 	z-index: 20;
 }
 
+.foods_menu_form p {
+	margin: 0 auto;
+}
+
 .immer_foods_menu_form{
 	display: flex;
 	justify-content: center;
@@ -657,7 +933,7 @@ body{
 }
 
 /* input field */
-.main_container .login_form form p input {
+.main_container .login_form form p input{
 	background: WHITE;
 	height: 36px;
     width: 100%;
@@ -700,7 +976,11 @@ body{
 
 .immer_requests_form form button:hover,
 .foods_menu:hover,
-.immer_foods_menu_form form button:hover{
+.immer_foods_menu_form form button:hover,
+.immer_gifts_detail a:hover,
+.immer_gifts_detail button:hover,
+a.button_new_message:hover,
+.immer_new_message_form button:hover{
 	background-color: #e2bdc6;
 	color: #545454;
 }
@@ -727,7 +1007,7 @@ body{
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.down_login_text a:hover {
+.down_login_text a:hover{
 	background-color: #ffecec;
 	color: #545454;
 }
@@ -841,23 +1121,41 @@ body{
 		width: 12rem;
 		margin: 0rem auto;
 	}
+	.inner_navbar ul {
+		padding-bottom: 20px;
+	}
 
 	.menu.active .dropdown .dropdown_content a{
 		width: 10rem;
 		margin: 1rem auto;
 	}
 
+	li.dropdown{
+	background-color: #676767;
+	width: auto;
+	height: 38px;
+	text-align: center;
+	border-radius: 25px;
+}
+
+
 	.main_container .content .item_wrap {
 		width: 100%;
 	}
 
 	.container_about_us img,
-	.immer_container_about_us{
+	.immer_container_about_us,
+	.immer_gifts_detail{
     	width: 85%;
 		letter-spacing: 0.02rem;
 	}
 
 	.card, .playlist_card{
+		display: grid;
+		grid-template-columns: repeat(1, minmax(6rem, 1fr));
+	}
+
+	.gifts_card{
 		display: grid;
 		grid-template-columns: repeat(1, minmax(6rem, 1fr));
 	}
@@ -883,7 +1181,8 @@ body{
 
 
 	.requests_form,
-	.foods_menu_form{
+	.foods_menu_form,
+	.invitation img{
 		width: 85%;
 	}
 
@@ -896,12 +1195,5 @@ body{
 	.home img{
 	width: 60%;
 	}
-
-
-
-
-
-
-
 }
 }
