@@ -8,7 +8,12 @@
         <h2>Přihlášení</h2>
         <form method="post">
             {% csrf_token %}
-            <div class="main_form"> {{ form.as_p }} </div>
+            <div class="main_form">
+             <label for="{{ form.username.id_for_label }}">Uživatelské jméno:</label>
+                                {{ form.username }}
+            <label for="{{ form.password.id_for_label }}">Heslo:</label>
+                                {{ form.password }}
+            </div>
             <button type="submit">Přihlášení</button>
         </form>
         <div class="down_login_text">

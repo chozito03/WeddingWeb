@@ -16,6 +16,7 @@ def run():
             name = row[0].strip()
             volume = row[1].strip()
             drink_type = row[2].strip()
+            only_for_adult = row[3].strip()
 
             drink_type_set = DrinksCourse.objects.filter(name=drink_type)
             if not drink_type_set:
@@ -28,7 +29,8 @@ def run():
             new_drink = Drinks.objects.create(
                 name=name,
                 volume=volume,
-                drink_type=DrinksCourse.objects.get(name=row[2].strip())
+                drink_type=DrinksCourse.objects.get(name=row[2].strip()),
+                only_for_adult=only_for_adult
             )
             print(f"Do tabulky Drinks vloženo nové pití '{name}'")
             count_drink += 1

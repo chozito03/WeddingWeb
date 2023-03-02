@@ -35,7 +35,7 @@ from django.views.generic import TemplateView, ListView, FormView, \
 
 
 class UsernameForm(forms.Form):
-    username = forms.CharField(label='Overovaci kod:')
+    username = forms.CharField(label='Ověřovací kód:')
 
 
 class UserRegistrationForm(UserCreationForm):

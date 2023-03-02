@@ -16,6 +16,7 @@ def run():
             name = row[0].strip()
             weight = row[1].strip()
             food_type = row[2].strip()
+            for_vegetarian = row[3].strip()
 
             food_type_set = MealCourse.objects.filter(name=food_type)
             if not food_type_set:
@@ -28,7 +29,8 @@ def run():
             new_meal = Meal.objects.create(
                 name=name,
                 weight=weight,
-                food_type=MealCourse.objects.get(name=row[2].strip())
+                food_type=MealCourse.objects.get(name=row[2].strip()),
+                for_vegetarian=for_vegetarian
             )
             print(f"Do tabulky Meal vloženo nové jídlo '{name}'")
             count_meal += 1
