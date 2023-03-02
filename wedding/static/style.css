@@ -1,51 +1,3 @@
-/*h1, h2 {*/
-/*    margin:0px;*/
-/*    display: inline-block;*/
-/*    padding:1em;*/
-/*    vertical-align: top;*/
-/*    font-family: georgia;*/
-/*    font-size: 28px;*/
-/*    line-height: 28px;*/
-/*}*/
-
-
-/*h2 {*/
-/*  text-align:right;*/
-/*  padding-right:2em;*/
-/*  float:right;*/
-/*}*/
-
-/*body {*/
-/*    background-color: #CC6699;*/
-/*    font-family: sans-serif;*/
-/*    color: #CCFFFF;*/
-/*    border: 3px solid #A9A9A9;*/
-/*    margin-top: 20px;*/
-/*    padding: 30px;*/
-/*}*/
-
-/*nav ul {*/
-/*  list-style-type: none;*/
-/*  margin: 0;*/
-/*  padding: 0;*/
-/*  overflow: hidden;*/
-/*  background-color: #A9A9A9;*/
-/*}*/
-
-/*nav ul li {*/
-/*  display: inline-block;*/
-/*  padding: 0 7px;*/
-/*  float: left;*/
-
-/*}*/
-
-/*nav ul li a {*/
-/*  display: block;*/
-/*  text-align: center;*/
-/*  padding: 14px 16px;*/
-/*  text-decoration: none;*/
-/*  color: #CCFFFF;*/
-/*}*/
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
 
 *{
@@ -69,7 +21,6 @@ body{
 	color: #545454;
 	min-height: 900px;
 }
-
 
 /*Navbar*/
 .navbar{
@@ -127,8 +78,7 @@ body{
 	background: #e2bdc6;
 }
 
-.navbar .menu ul li:last-child:hover
-{
+.navbar .menu ul li:last-child:hover{
 	background: #232323;
 }
 
@@ -139,7 +89,6 @@ li.dropdown{
 	text-align: center;
 	border-radius: 25px;
 	transition: all 0.4s ease;
-
 }
 
 .dropdown {
@@ -157,10 +106,10 @@ li.dropdown{
 	text-align: left;
 }
 
-
 .dropdown:hover .dropdown_content {
   	display: block;
 }
+
 .main_container{
     display: block;
     align-items: center;
@@ -171,13 +120,11 @@ li.dropdown{
 }
 
 /*home*/
-
 .home{
     display: block;
     align-items: center;
     margin: 30% auto;
     text-align: center;
-
 }
 
 .home img{
@@ -198,13 +145,11 @@ li.dropdown{
 .inner_home h1{
 	margin: 2rem 0;
 }
+
 .home .inner_home .countdown {
 	display: flex;
 	flex-direction: column;
 	margin: 10rem 0 0 0;
-
-
-
 }
 
 .wedding_date {
@@ -212,7 +157,6 @@ li.dropdown{
 }
 
 /* about_us */
-
 .container_about_us{
   	/*display: grid;*/
   	/*grid-template-columns: repeat(2, 3fr);*/
@@ -265,8 +209,8 @@ li.dropdown{
 	color: #bd0e0e;
 	transition: all 1.2s ease;
 }
-/*gifts detail*/
 
+/*gifts detail*/
 .gifts_detail{
   	/*display: grid;*/
   	/*grid-template-columns: repeat(2, 3fr);*/
@@ -291,6 +235,7 @@ li.dropdown{
 	opacity: 0.85;
 	z-index: 10;
 }
+
 .inner_gifts_detail img{
 	width: 65%;
 	height: 65%;
@@ -314,6 +259,7 @@ p.message {
 	text-align: center;
 	font-size: 1.2rem;
 }
+
 .inner_gifts_detail a{
     margin: 15px auto;
     display: flex;
@@ -356,6 +302,7 @@ p.message {
 	margin: 60px auto;
 	opacity: 0.85;
 }
+
 .card {
 	margin: auto;
     display: grid;
@@ -364,6 +311,7 @@ p.message {
     grid-gap: 1rem;
 	text-align: center;
 }
+
 .inner_card {
 	width: 14rem;
     display: flex;
@@ -376,7 +324,7 @@ p.message {
 }
 
 .results_search_song img{
-	margin: 0px auto;
+	margin: 0 auto;
 	border-radius: 50%;
 	width: 10rem;
 }
@@ -396,7 +344,7 @@ p.message {
 .results_search_song a,
 .results_search_song button{
 	width: 7rem;
-	margin: 0px auto;
+	margin: 0 auto;
   	background-color: #545454;
 	line-height: 1.2rem;
 	text-align: center;
@@ -409,11 +357,11 @@ p.message {
 	border-radius: 1rem;
 	border: none;
 }
+
 .results_search_song button{
 	line-height: 2.1rem;
 	font-size: 0.67rem;
 	width: 10rem;
-
 }
 
 .results_search_song a:hover,
@@ -422,7 +370,6 @@ p.message {
 }
 
 /*Playlist*/
-
 .h1_text h1{
 	text-align: center;
 	margin: 3rem auto;
@@ -442,6 +389,7 @@ p.message {
     grid-gap: 0.67rem;
 	opacity: 0.85;
 }
+
 .inner_playlist_card{
 	/*width: 23rem;*/
     display: inline-flex;
@@ -463,8 +411,8 @@ p.message {
 .playlist_card h1{
 	font-size: 1rem;
 	text-align: center;
-
 }
+
 .playlist h2{
 	font-size: 0.87rem;
 	text-align: center;
@@ -491,9 +439,7 @@ p.message {
 	background-color: #e2bdc6;
 }
 
-
 /*gifts*/
-
 .h1_text_gifts h1{
 	text-align: center;
 	margin: 30% auto 4rem auto;
@@ -505,7 +451,6 @@ p.message {
 	margin: 0 auto;
 	justify-content: center;
 }
-
 
 .gifts_card {
 	margin: 0 23px;
@@ -537,8 +482,8 @@ p.message {
 .gifts_card h1{
 	font-size: 1rem;
 	text-align: left;
-
 }
+
 .gifts_card h2{
 	font-size: 0.8rem;
 	text-align: left;
@@ -566,13 +511,13 @@ p.message {
 }
 
 /*  search form  */
-
 .search_song {
 	margin: 30% auto 0 auto;
     display: block;
     align-items: center;
     text-align: center;
 }
+
 .search_song h3 {
 	font-size: 0.87rem;
 	text-align: center;
@@ -617,6 +562,7 @@ p.message {
 	color: #fff;
 	transition: all 0.3s ease;
 }
+
 .search_song form button:hover{
 	background-color: #e2bdc6;
 	color: #545454;
@@ -649,6 +595,7 @@ p.message {
 .inner_new_message_form label{
     margin: 0.6rem auto 0.3rem auto;
 }
+
 .message_form{
     display: flex;
 	flex-direction: column;
@@ -679,8 +626,8 @@ p.message {
     border-radius: 15px;
 	margin-bottom: 2rem;
 }
-/*invitation*/
 
+/*invitation*/
 .invitation{
 	display: flex;
 }
@@ -723,14 +670,7 @@ a.button_new_message,
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-
-
-
-
 /*News*/
-
-
-
 .h1_text_news h1{
 	text-align: center;
 	margin: 30% auto 2rem auto;
@@ -749,8 +689,8 @@ a.button_new_message,
 	width: 75%;
 	max-width: 60rem;
 	text-align: justify;
-
 }
+
 .inner_news {
   	background-color: #ffecec;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -857,8 +797,6 @@ a.button_new_message,
 	width: 26rem;
 }
 
-
-
 /*foods_menu*/
 .foods_menu_form{
 	display: flex;
@@ -888,11 +826,13 @@ a.button_new_message,
 	font-size: 1.8rem;
 	text-align: center;
 }
+
 .foods_menu_form h3{
 	margin: 1rem auto 1rem auto;
 	font-size: 1.2rem;
 	text-align: center;
 }
+
 .inner_foods_menu_form form label {
     display: flex;
 	justify-content: flex-start;
@@ -909,14 +849,11 @@ a.button_new_message,
 	height: 1rem;
 }
 
-
-
 /* Text login */
 .login_form h2 {
     text-align: center;
 	font-size: 2rem;
 }
-
 
 /* form field */
 .main_form p,
@@ -969,13 +906,8 @@ a.button_new_message,
 }
 
 
-
-
-.main_container .login_form form button:hover{
-	background-connr: #ffecec;
-	color: #545454;
-}
-
+.down_login_text a:hover,
+.main_container .login_form form button:hover,
 .inner_requests_form form button:hover,
 .foods_menu:hover,
 .inner_foods_menu_form form button:hover,
@@ -986,6 +918,7 @@ a.button_new_message:hover,
 	background-color: #e2bdc6;
 	color: #545454;
 }
+
 .down_login_text p {
     margin: 5px auto;
     display: flex;
@@ -1009,15 +942,9 @@ a.button_new_message:hover,
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.down_login_text a:hover{
-	background-color: #ffecec;
-	color: #545454;
-}
-
 .image img {
 	width: 250px;
 	border-radius: 50%;
-
 }
 
 @media (max-width: 992px)
@@ -1026,9 +953,11 @@ a.button_new_message:hover,
 		height: 100px;
 		padding: 12px;
 	}
+
 	.navbar .inner_navbar{
 		flex-direction: column;
 	}
+
 	.main_container{
 		margin-top: 100px;
 	}
@@ -1042,13 +971,9 @@ a.button_new_message:hover,
 		margin: 140px auto;
 	}
 
-
 	.home img{
 	width: 40%;
 	}
-
-
-
 
 @media (max-width: 728px) {
 	body{
@@ -1112,6 +1037,7 @@ a.button_new_message:hover,
 	.navbar .menu.active {
 		display: block;
 	}
+
 	.menu.active ul{
 		background: #232323;
 		border-bottom-left-radius: 1rem;
@@ -1123,6 +1049,7 @@ a.button_new_message:hover,
 		width: 12rem;
 		margin: 0rem auto;
 	}
+
 	.inner_navbar ul {
 		padding-bottom: 20px;
 	}
@@ -1138,7 +1065,7 @@ a.button_new_message:hover,
 	height: 38px;
 	text-align: center;
 	border-radius: 25px;
-}
+	}
 
 
 	.main_container .content .item_wrap {
@@ -1161,14 +1088,17 @@ a.button_new_message:hover,
 		display: grid;
 		grid-template-columns: repeat(1, minmax(6rem, 1fr));
 	}
+
 	.search_song{
 	width: 21rem;
 	}
+
 	.inner_requests_form form p label,
 	.inner_foods_menu_form form label{
 		font-size: 0.93rem;
 		height: 1.4rem;
 	}
+
 	.inner_requests_form form p{
 		width: 20rem;
 	}
@@ -1180,7 +1110,6 @@ a.button_new_message:hover,
 	#id_takeaway_to_home{
 		width: 1rem;
 	}
-
 
 	.requests_form,
 	.foods_menu_form,

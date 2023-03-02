@@ -28,7 +28,7 @@ class UserRegistrationForm(UserCreationForm):
     username = forms.CharField(label='Overovaci kod:')
     first_name = forms.CharField(label='Jméno:')
     last_name = forms.CharField(label='Příjmení')
-    password1 = forms.CharField(label='Heslo:')
+    password1 = forms.CharField(label='Heslo:', help_text="zadaj heslo")
     password2 = forms.CharField(label='Potvrzení hesla:')
 
     class Meta:
