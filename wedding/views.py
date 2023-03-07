@@ -28,8 +28,6 @@ class UserRegistrationForm(UserCreationForm):
     username = forms.CharField(label='Overovaci kod:')
     first_name = forms.CharField(label='Jméno:')
     last_name = forms.CharField(label='Příjmení')
-    # password1 = forms.CharField(label='Heslo:')
-    # password2 = forms.CharField(label='Potvrzení hesla:')
     password1 = forms.CharField(label='Heslo:', widget=forms.PasswordInput(render_value=False))
     password2 = forms.CharField(label='Potvrzení hesla:', widget=forms.PasswordInput(render_value=False))
 
